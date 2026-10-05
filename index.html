@@ -3,812 +3,1709 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b0d10">
+<meta name="theme-color" content="#0e0f11">
 <title>IronLOG</title>
 
 <style>
+:root{
+  --bg:#0e0f11;
+  --card:#17191d;
+  --card2:#1d2025;
+  --text:#f3f4f6;
+  --muted:#969ba5;
+  --line:#292d34;
+  --accent:#d7ff3f;
+  --danger:#ff6464;
+  --good:#78e08f;
+}
 *{box-sizing:border-box}
 body{
   margin:0;
-  background:#0b0d10;
-  color:#f5f5f5;
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
 }
-button,input{font:inherit}
-button{cursor:pointer}
-.app{max-width:700px;margin:auto;padding-bottom:90px}
+button,input,select,textarea{font:inherit}
+button{color:inherit}
+.app{
+  max-width:720px;
+  margin:auto;
+  padding:18px 16px 105px;
+}
 header{
-  padding:28px 20px 18px;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  margin:4px 0 22px;
 }
-.logo{font-size:28px;font-weight:800;letter-spacing:-1px}
-.logo span{color:#7ee081}
-main{padding:0 18px}
-.page{display:none}
-.page.active{display:block}
-h1{font-size:32px;margin:12px 0 5px}
-h2{font-size:21px;margin:0 0 14px}
-.muted{color:#8e949d}
+.logo{
+  font-size:25px;
+  font-weight:800;
+  letter-spacing:-.04em;
+}
+.logo span{color:var(--accent)}
+h1{font-size:28px;margin:0 0 5px}
+h2{font-size:20px;margin:0 0 8px}
+.sub{color:var(--muted);font-size:14px}
+.tiny{color:var(--muted);font-size:11px}
 .card{
-  background:#15181d;
-  border:1px solid #242930;
-  border-radius:18px;
-  padding:18px;
-  margin:14px 0;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:15px;
+  margin:10px 0;
 }
-.grid{
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+.tag{
+  color:var(--accent);
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.statgrid{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
 }
 .stat{
-  background:#15181d;
-  border:1px solid #242930;
-  border-radius:16px;
-  padding:16px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:13px;
 }
-.stat strong{display:block;font-size:25px;margin-top:5px}
-.stat small{color:#8e949d}
-.primary{
-  width:100%;
+.stat b{font-size:20px;display:block}
+.stat small{font-size:11px;color:var(--muted)}
+.btn{
   border:0;
-  border-radius:14px;
-  background:#7ee081;
-  color:#071009;
+  border-radius:9px;
+  padding:10px 13px;
+  background:var(--accent);
+  color:#111;
   font-weight:750;
-  padding:15px;
-  margin-top:10px;
 }
 .secondary{
-  border:1px solid #30363f;
-  background:#191c21;
-  color:white;
-  border-radius:12px;
-  padding:11px 14px;
+  background:var(--card2);
+  color:var(--text);
+  border:1px solid var(--line);
 }
-input{
+.actions{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+.actions .btn{flex:1}
+.fieldgrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+.field{margin-top:9px}
+.field label{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:5px;
+}
+input,select,textarea{
   width:100%;
-  background:#0e1014;
-  color:white;
-  border:1px solid #30363f;
-  border-radius:11px;
-  padding:12px;
-  margin-top:6px;
+  background:var(--card2);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:10px;
+  color:var(--text);
+  outline:none;
 }
-label{display:block;color:#aeb4bd;font-size:13px;margin-bottom:13px}
-nav{
+textarea{min-height:70px;resize:vertical}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--accent);
+}
+.progress{
+  height:6px;
+  background:var(--line);
+  border-radius:8px;
+  overflow:hidden;
+  margin:12px 0 5px;
+}
+.progress i{
+  display:block;
+  height:100%;
+  background:var(--accent);
+}
+.section{
+  font-size:18px;
+  font-weight:750;
+  margin:20px 0 8px;
+}
+.notice{
+  background:var(--card2);
+  border:1px solid var(--line);
+  padding:11px 12px;
+  border-radius:9px;
+  font-size:13px;
+}
+.notice.good{border-color:#426c4b}
+.notice.warn{border-color:#765f35}
+.listrow{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:11px 0;
+  border-top:1px solid var(--line);
+}
+.listrow:first-child{border-top:0}
+.pill{
+  background:var(--card2);
+  border-radius:7px;
+  padding:4px 7px;
+  font-size:11px;
+}
+.exercise{
+  padding:15px 0;
+  border-top:1px solid var(--line);
+}
+.exercise:first-child{border-top:0}
+.exname{font-weight:700;font-size:16px}
+.focus{font-size:12px;color:var(--muted);margin-top:3px}
+.setgrid{
+  display:grid;
+  grid-template-columns:45px 1fr 1fr;
+  gap:7px;
+  align-items:center;
+  margin-top:10px;
+}
+.setgrid span{font-size:12px;color:var(--muted)}
+input[type=checkbox]{
+  width:20px;
+  height:20px;
+  accent-color:var(--accent);
+}
+.chart{
+  width:100%;
+  height:210px;
+  display:block;
+}
+.chartline{
+  fill:none;
+  stroke:var(--accent);
+  stroke-width:3;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.chartdot{fill:var(--accent)}
+.chartlabel{fill:var(--muted);font-size:10px}
+.meal{
+  padding:12px 0;
+  border-top:1px solid var(--line);
+}
+.meal:first-child{border-top:0}
+.nav{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
-  background:rgba(17,19,23,.96);
-  border-top:1px solid #292e36;
-  display:flex;
-  justify-content:center;
+  background:rgba(14,15,17,.97);
+  backdrop-filter:blur(12px);
+  border-top:1px solid var(--line);
   z-index:10;
 }
-.navinner{
-  width:100%;
-  max-width:700px;
+.navin{
+  max-width:720px;
+  margin:auto;
   display:grid;
   grid-template-columns:repeat(5,1fr);
 }
-nav button{
+.nav button{
   background:none;
   border:0;
-  color:#777e88;
-  padding:12px 4px 15px;
-  font-size:11px;
+  padding:10px 3px 12px;
+  color:var(--muted);
+  font-size:10px;
 }
-nav button.active{color:#7ee081}
-.navicon{display:block;font-size:20px;margin-bottom:3px}
-.exercise{
-  border:1px solid #292e35;
-  background:#14171b;
-  border-radius:16px;
-  padding:15px;
-  margin:12px 0;
-}
-.exercise-title{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-}
-.exercise-title strong{font-size:16px}
-.tag{
-  color:#7ee081;
-  font-size:12px;
-  white-space:nowrap;
-}
-.set{
-  display:grid;
-  grid-template-columns:35px 1fr 1fr 42px;
-  gap:7px;
-  align-items:center;
-  margin-top:9px;
-}
-.set span{color:#777e88;text-align:center;font-size:12px}
-.set input{margin:0;padding:9px}
-.done{
-  width:38px;height:38px;
-  border-radius:10px;
-  border:1px solid #30363b;
-  background:#0e1014;
-  color:#777;
-}
-.done.checked{
-  background:#7ee081;
-  color:#061008;
-}
-.weekday{
-  padding:14px;
-  border:1px solid #292e35;
-  border-radius:14px;
-  margin:9px 0;
-  display:flex;
-  justify-content:space-between;
-}
-canvas{
-  width:100%;
-  height:210px;
-  background:#0e1014;
-  border-radius:14px;
+.nav button.active{
+  color:var(--accent);
+  font-weight:700;
 }
 .empty{
   text-align:center;
-  padding:35px 15px;
-  color:#777e88;
+  padding:35px 10px;
+  color:var(--muted);
 }
-.row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
+@media(max-width:430px){
+  .statgrid{grid-template-columns:repeat(3,1fr)}
+  .fieldgrid{grid-template-columns:1fr 1fr}
 }
-.small{font-size:13px}
-.danger{color:#ff7777}
-hr{border:0;border-top:1px solid #292e35;margin:18px 0}
 </style>
 </head>
 
 <body>
-
-<div class="app">
-
-<header>
-  <div class="logo">Iron<span>LOG</span></div>
-  <div class="muted small">Built for consistency.</div>
-</header>
-
-<main>
-
-<!-- HOME -->
-<section id="home" class="page active">
-  <h1>Good to see you.</h1>
-  <p class="muted">Your fitness journey, in one place.</p>
-
-  <div class="grid">
-    <div class="stat">
-      <small>Current weight</small>
-      <strong id="homeWeight">--</strong>
-    </div>
-    <div class="stat">
-      <small>Goal weight</small>
-      <strong id="homeGoal">75 kg</strong>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="row">
-      <div>
-        <h2>Today's workout</h2>
-        <div class="muted" id="todayWorkout">Loading...</div>
-      </div>
-      <div>🏋️</div>
-    </div>
-    <button class="primary" onclick="showPage('workout')">
-      Start Workout
-    </button>
-  </div>
-
-  <div class="card">
-    <div class="row">
-      <h2>Weight progress</h2>
-      <span class="muted small" id="weightChange"></span>
-    </div>
-    <canvas id="homeChart"></canvas>
-  </div>
-
-  <div class="card">
-    <h2>Weekly check-in</h2>
-    <p class="muted small">
-      Update your body data every week. Your progress graph updates automatically.
-    </p>
-    <button class="secondary" onclick="showPage('body')">
-      + Add check-in
-    </button>
-  </div>
-</section>
-
-
-<!-- BODY -->
-<section id="body" class="page">
-  <h1>Body Progress</h1>
-  <p class="muted">Update this once a week.</p>
-
-  <div class="card">
-    <h2>New check-in</h2>
-
-    <label>Date
-      <input type="date" id="checkDate">
-    </label>
-
-    <label>Weight (kg)
-      <input type="number" step="0.1" id="checkWeight" placeholder="84.0">
-    </label>
-
-    <label>Body fat % <span class="muted">(optional)</span>
-      <input type="number" step="0.1" id="checkFat" placeholder="25">
-    </label>
-
-    <label>Waist (cm) <span class="muted">(optional)</span>
-      <input type="number" step="0.1" id="checkWaist">
-    </label>
-
-    <label>Notes <span class="muted">(optional)</span>
-      <input type="text" id="checkNotes" placeholder="How the week went...">
-    </label>
-
-    <button class="primary" onclick="saveCheckin()">Save Check-in</button>
-  </div>
-
-  <div class="card">
-    <h2>Weight trend</h2>
-    <canvas id="bodyChart"></canvas>
-  </div>
-
-  <div class="card">
-    <h2>Check-in history</h2>
-    <div id="checkinList"></div>
-  </div>
-</section>
-
-
-<!-- WORKOUT -->
-<section id="workout" class="page">
-  <h1 id="workoutTitle">Workout</h1>
-  <p class="muted" id="workoutSubtitle"></p>
-
-  <div id="exerciseList"></div>
-
-  <button class="primary" onclick="finishWorkout()">
-    Finish Workout
-  </button>
-</section>
-
-
-<!-- HISTORY -->
-<section id="history" class="page">
-  <h1>History</h1>
-  <p class="muted">Your completed training sessions.</p>
-  <div id="historyList"></div>
-</section>
-
-
-<!-- SETTINGS -->
-<section id="settings" class="page">
-  <h1>Settings</h1>
-
-  <div class="card">
-    <h2>Your goal</h2>
-
-    <label>Target weight (kg)
-      <input type="number" id="goalInput" step="0.1">
-    </label>
-
-    <button class="primary" onclick="saveGoal()">Save Goal</button>
-  </div>
-
-  <div class="card">
-    <h2>Backup</h2>
-    <p class="muted small">
-      Export your IronLOG data so you never lose your progress.
-    </p>
-
-    <button class="secondary" onclick="exportData()">Export Backup</button>
-
-    <hr>
-
-    <label>Import backup
-      <input type="file" accept=".json" onchange="importData(event)">
-    </label>
-  </div>
-
-  <div class="card">
-    <h2>Danger zone</h2>
-    <button class="secondary danger" onclick="resetData()">
-      Reset All Data
-    </button>
-  </div>
-</section>
-
-</main>
-</div>
-
-
-<nav>
-<div class="navinner">
-  <button onclick="showPage('home')" data-page="home" class="active">
-    <span class="navicon">⌂</span>Home
-  </button>
-
-  <button onclick="showPage('body')" data-page="body">
-    <span class="navicon">◔</span>Body
-  </button>
-
-  <button onclick="showPage('workout')" data-page="workout">
-    <span class="navicon">♜</span>Workout
-  </button>
-
-  <button onclick="showPage('history')" data-page="history">
-    <span class="navicon">▤</span>History
-  </button>
-
-  <button onclick="showPage('settings')" data-page="settings">
-    <span class="navicon">⚙</span>Settings
-  </button>
-</div>
-</nav>
-
+<div id="root"></div>
 
 <script>
+/* =========================
+   IRONLOG DATA
+========================= */
 
-const workouts = {
-Monday:{
-name:"Push",
-exercises:[
-["Incline Bench Press",2,"8–12"],
-["Pec Deck",2,"10–15"],
-["Shoulder Press Machine",2,"8–12"],
-["Cable/Dumbbell Lateral Raise",2,"10–15"],
-["Rope Pushdown",2,"8–12"],
-["Overhead Cable Triceps Extension",2,"10–15"]
-]},
-Tuesday:{
-name:"Pull",
-exercises:[
-["Lat Pulldown",2,"8–12"],
-["Incline Bench-Supported Barbell Row",2,"8–12"],
-["Seated Cable Row",2,"8–12"],
-["Cable Crossover Rear-Delt Fly",2,"10–15"],
-["Preacher Curl",2,"8–12"],
-["Rope Hammer Curl",2,"8–12"]
-]},
-Wednesday:{
-name:"Legs + Abs",
-exercises:[
-["Leg Press",2,"8–12"],
-["Leg Curl",2,"8–12"],
-["Leg Extension",2,"10–15"],
-["Standing Calf Raise",2,"10–15"],
-["Cable Crunch",2,"10–15"]
-]},
-Thursday:{
-name:"Chest + Back",
-exercises:[
-["Incline Bench Press",3,"8–12"],
-["High-to-Low Cable Fly",3,"10–15"],
-["Flat Dumbbell Press",3,"8–12"],
-["Lat Pulldown",3,"8–12"],
-["Single-Arm Dumbbell Row",3,"8–12"],
-["Straight-Arm Cable Pulldown",3,"10–15"]
-]},
-Friday:{
-name:"Shoulders + Arms + Forearms",
-exercises:[
-["Shoulder Press Machine",3,"8–12"],
-["Cable Lateral Raise",2,"10–15"],
-["Preacher Curl",3,"8–12"],
-["Incline Dumbbell Curl",2,"8–12"],
-["Rope Pushdown",3,"8–12"],
-["Overhead Cable Triceps Extension",2,"10–15"],
-["Wrist Curl",2,"12–15"],
-["Reverse Wrist Curl",2,"12–15"]
-]},
-Saturday:{
-name:"Legs + Abs",
-exercises:[
-["Conventional Deadlift",2,"6–8"],
-["Leg Press",3,"8–12"],
-["Leg Curl",3,"8–12"],
-["Leg Extension",2,"10–15"],
-["Standing Calf Raise",3,"10–15"],
-["Hanging Knee Raise",2,"10–15"]
-]},
-Sunday:{
-name:"Rest",
-exercises:[]
+const WORKOUTS={
+Mon:{
+ name:"Push",
+ sub:"Chest • Shoulders • Triceps",
+ ex:[
+  ["Incline Bench Press","Chest","8–12",2],
+  ["Pec Deck","Chest","10–15",2],
+  ["Shoulder Press Machine","Shoulders","8–12",2],
+  ["Cable Lateral Raise","Shoulders","10–15",2],
+  ["Rope Pushdown","Triceps","8–12",2],
+  ["Overhead Cable Triceps Extension","Triceps","10–15",2]
+ ]},
+Tue:{
+ name:"Pull",
+ sub:"Back • Rear Delts • Biceps",
+ ex:[
+  ["Lat Pulldown","Back","8–12",2],
+  ["Incline Bench-Supported Barbell Row","Back","8–12",2],
+  ["Seated Cable Row","Back","8–12",2],
+  ["Cable Crossover Rear-Delt Fly","Rear Delts","10–15",2],
+  ["Preacher Curl","Biceps","8–12",2],
+  ["Rope Hammer Curl","Biceps","8–12",2]
+ ]},
+Wed:{
+ name:"Legs + Abs",
+ sub:"Quads • Hamstrings • Calves • Abs",
+ ex:[
+  ["Leg Press","Quads + Glutes","8–12",2],
+  ["Leg Curl","Hamstrings","8–12",2],
+  ["Leg Extension","Quads","10–15",2],
+  ["Standing Calf Raise","Calves","10–15",2],
+  ["Cable Crunch","Abs","10–15",2]
+ ]},
+Thu:{
+ name:"Chest + Back",
+ sub:"Chest • Back",
+ ex:[
+  ["Incline Bench Press","Chest","8–12",3],
+  ["High-to-Low Cable Fly","Chest","10–15",3],
+  ["Flat Dumbbell Press","Chest","8–12",3],
+  ["Lat Pulldown","Back","8–12",3],
+  ["Single-Arm Dumbbell Row","Back","8–12",3],
+  ["Straight-Arm Cable Pulldown","Back","10–15",3]
+ ]},
+Fri:{
+ name:"Shoulders + Arms + Forearms",
+ sub:"Shoulders • Biceps • Triceps • Forearms",
+ ex:[
+  ["Shoulder Press Machine","Shoulders","8–12",3],
+  ["Cable Lateral Raise","Shoulders","10–15",2],
+  ["Preacher Curl","Biceps","8–12",3],
+  ["Incline Dumbbell Curl","Biceps","8–12",2],
+  ["Rope Pushdown","Triceps","8–12",3],
+  ["Overhead Cable Triceps Extension","Triceps","10–15",2],
+  ["Wrist Curl","Forearms • Superset A","12–15",2],
+  ["Reverse Wrist Curl","Forearms • Superset B","12–15",2]
+ ]},
+Sat:{
+ name:"Legs + Abs",
+ sub:"Posterior Chain • Quads • Calves • Abs",
+ ex:[
+  ["Conventional Deadlift","Posterior Chain","6–8",2],
+  ["Leg Press","Quads + Glutes","8–12",3],
+  ["Leg Curl","Hamstrings","8–12",3],
+  ["Leg Extension","Quads","10–15",2],
+  ["Standing Calf Raise","Calves","10–15",3],
+  ["Hanging Knee Raise","Abs","10–15",2]
+ ]},
+Sun:{
+ name:"Rest",
+ sub:"Recovery",
+ ex:[]
 }
 };
 
-let data=JSON.parse(localStorage.getItem("ironlogData")||"null")||{
-goal:75,
-checkins:[],
-sessions:[]
-};
+const STORAGE="ironlog_v2";
+
+let state;
+
+try{
+ state=JSON.parse(
+  localStorage.getItem(STORAGE) ||
+  localStorage.getItem("ironlog_v1") ||
+  "null"
+ );
+}catch(e){state=null}
+
+if(!state){
+ state={
+  page:"home",
+  logs:{},
+  checkins:[],
+  steps:{},
+  diet:{},
+  goalWeight:75,
+  settings:{
+   height:180,
+   sex:"male",
+   stepGoal:10000,
+   calorieGoal:2200,
+   proteinGoal:100,
+   carbGoal:170,
+   fatGoal:67
+  }
+ }
+}
+
+state.logs=state.logs||{};
+state.checkins=state.checkins||[];
+state.steps=state.steps||{};
+state.diet=state.diet||{};
+state.settings=state.settings||{};
+
+Object.assign({
+ height:180,
+ sex:"male",
+ stepGoal:10000,
+ calorieGoal:2200,
+ proteinGoal:100,
+ carbGoal:170,
+ fatGoal:67
+},state.settings);
 
 function save(){
-  localStorage.setItem("ironlogData",JSON.stringify(data));
+ localStorage.setItem(STORAGE,JSON.stringify(state));
+}
+
+function today(){
+ return new Date().toISOString().slice(0,10);
 }
 
 function dayName(){
-  return ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][new Date().getDay()];
+ return ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][new Date().getDay()];
 }
 
-function showPage(id){
-  document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-
-  document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
-  const b=document.querySelector(`[data-page="${id}"]`);
-  if(b)b.classList.add("active");
-
-  if(id==="home")renderHome();
-  if(id==="body")renderBody();
-  if(id==="workout")renderWorkout();
-  if(id==="history")renderHistory();
-  if(id==="settings")renderSettings();
-
-  window.scrollTo(0,0);
+function esc(s){
+ return String(s).replace(/'/g,"\\'");
 }
 
-function renderHome(){
-
-  const last=data.checkins[data.checkins.length-1];
-
-  document.getElementById("homeWeight").textContent=
-    last ? last.weight.toFixed(1)+" kg" : "--";
-
-  document.getElementById("homeGoal").textContent=data.goal+" kg";
-
-  const day=dayName();
-  document.getElementById("todayWorkout").textContent=
-    workouts[day].name;
-
-  if(data.checkins.length>=2){
-    const a=data.checkins[data.checkins.length-2].weight;
-    const b=last.weight;
-    const diff=b-a;
-
-    document.getElementById("weightChange").textContent=
-      (diff>0?"+":"")+diff.toFixed(1)+" kg";
-  }
-
-  drawChart("homeChart");
+function go(page){
+ state.page=page;
+ save();
+ render();
 }
 
-function renderBody(){
+/* =========================
+   MONDAY CHECK-IN
+========================= */
 
-  document.getElementById("checkDate").value=
-    new Date().toISOString().slice(0,10);
+function mondayDate(){
+ const d=new Date();
+ const day=d.getDay();
+ const diff=day===0?-6:1-day;
+ d.setDate(d.getDate()+diff);
+ return d.toISOString().slice(0,10);
+}
 
-  drawChart("bodyChart");
+function isMonday(){
+ return new Date().getDay()===1;
+}
 
-  const list=document.getElementById("checkinList");
+function thisMondayCheckin(){
+ return state.checkins.find(x=>x.date===mondayDate());
+}
 
-  if(!data.checkins.length){
-    list.innerHTML='<div class="empty">No check-ins yet.<br>Add your first weekly check-in above.</div>';
-    return;
-  }
+/* US Navy body-fat estimate.
+   Male: height, neck, waist.
+   Female: height, neck, waist, hips.
+*/
+function calculateBF(){
+ const h=+document.getElementById("mHeight").value;
+ const neck=+document.getElementById("mNeck").value;
+ const waist=+document.getElementById("mWaist").value;
+ const hips=+document.getElementById("mHips").value;
+ const sex=document.getElementById("mSex").value;
 
-  list.innerHTML=[...data.checkins].reverse().map(x=>`
-    <div class="weekday">
-      <div>
-        <strong>${x.date}</strong>
-        <div class="muted small">
-          ${x.fat ? "Body fat: "+x.fat+"%":""}
-          ${x.waist ? " • Waist: "+x.waist+" cm":""}
-        </div>
-      </div>
-      <strong>${x.weight.toFixed(1)} kg</strong>
-    </div>
-  `).join("");
+ if(!h || !neck || !waist) return null;
+
+ const H=h/2.54;
+ const N=neck/2.54;
+ const W=waist/2.54;
+ const Hip=hips/2.54;
+
+ let bf;
+
+ if(sex==="female"){
+  if(!hips) return null;
+  bf=
+   163.205*Math.log10(W+Hip-N)
+   -97.684*Math.log10(H)
+   -78.387;
+ }else{
+  if(W<=N) return null;
+  bf=
+   86.010*Math.log10(W-N)
+   -70.041*Math.log10(H)
+   +36.76;
+ }
+
+ return Math.max(2,Math.min(60,bf));
 }
 
 function saveCheckin(){
+ if(!isMonday()){
+  alert("Body check-ins are available every Monday.");
+  return;
+ }
 
-  const weight=parseFloat(document.getElementById("checkWeight").value);
+ const date=mondayDate();
 
-  if(!weight){
-    alert("Enter your weight first.");
-    return;
-  }
+ const c={
+  date,
+  weight:+document.getElementById("mWeight").value||0,
+  neck:+document.getElementById("mNeck").value||0,
+  shoulders:+document.getElementById("mShoulders").value||0,
+  chest:+document.getElementById("mChest").value||0,
+  waist:+document.getElementById("mWaist").value||0,
+  hips:+document.getElementById("mHips").value||0,
+  leftArm:+document.getElementById("mLeftArm").value||0,
+  rightArm:+document.getElementById("mRightArm").value||0,
+  leftForearm:+document.getElementById("mLeftForearm").value||0,
+  rightForearm:+document.getElementById("mRightForearm").value||0,
+  leftThigh:+document.getElementById("mLeftThigh").value||0,
+  rightThigh:+document.getElementById("mRightThigh").value||0,
+  leftCalf:+document.getElementById("mLeftCalf").value||0,
+  rightCalf:+document.getElementById("mRightCalf").value||0,
+  bf:calculateBF(),
+  notes:document.getElementById("mNotes").value
+ };
 
-  data.checkins.push({
-    date:document.getElementById("checkDate").value,
-    weight:weight,
-    fat:parseFloat(document.getElementById("checkFat").value)||null,
-    waist:parseFloat(document.getElementById("checkWaist").value)||null,
-    notes:document.getElementById("checkNotes").value
-  });
+ const old=state.checkins.findIndex(x=>x.date===date);
 
-  data.checkins.sort((a,b)=>a.date.localeCompare(b.date));
+ if(old>=0) state.checkins[old]=c;
+ else state.checkins.push(c);
 
-  save();
+ state.weight=c.weight;
+ state.settings.height=+document.getElementById("mHeight").value||180;
+ state.settings.sex=document.getElementById("mSex").value;
 
-  document.getElementById("checkWeight").value="";
-  document.getElementById("checkFat").value="";
-  document.getElementById("checkWaist").value="";
-  document.getElementById("checkNotes").value="";
-
-  renderBody();
-  renderHome();
-
-  alert("Check-in saved.");
+ save();
+ alert("Monday check-in saved.");
+ render();
 }
 
-function drawChart(id){
+/* =========================
+   BODY PAGE
+========================= */
 
-  const canvas=document.getElementById(id);
-  if(!canvas)return;
-
-  const ctx=canvas.getContext("2d");
-
-  canvas.width=canvas.clientWidth*2;
-  canvas.height=420;
-
-  ctx.scale(2,2);
-
-  const w=canvas.clientWidth;
-  const h=210;
-
-  ctx.clearRect(0,0,w,h);
-
-  if(data.checkins.length<1){
-    ctx.fillStyle="#777e88";
-    ctx.font="14px -apple-system";
-    ctx.fillText("Your progress will appear here.",20,105);
-    return;
-  }
-
-  const vals=data.checkins.map(x=>x.weight);
-
-  const min=Math.min(...vals,data.goal)-1;
-  const max=Math.max(...vals)+1;
-
-  ctx.strokeStyle="#292e35";
-  ctx.lineWidth=1;
-
-  for(let i=0;i<4;i++){
-    const y=25+i*50;
-    ctx.beginPath();
-    ctx.moveTo(15,y);
-    ctx.lineTo(w-15,y);
-    ctx.stroke();
-  }
-
-  ctx.strokeStyle="#7ee081";
-  ctx.lineWidth=3;
-  ctx.beginPath();
-
-  vals.forEach((v,i)=>{
-    const x=20+(i/(Math.max(vals.length-1,1)))*(w-40);
-    const y=180-((v-min)/(max-min))*145;
-
-    if(i===0)ctx.moveTo(x,y);
-    else ctx.lineTo(x,y);
-  });
-
-  ctx.stroke();
-
-  vals.forEach((v,i)=>{
-    const x=20+(i/(Math.max(vals.length-1,1)))*(w-40);
-    const y=180-((v-min)/(max-min))*145;
-
-    ctx.fillStyle="#7ee081";
-    ctx.beginPath();
-    ctx.arc(x,y,4,0,Math.PI*2);
-    ctx.fill();
-  });
+function input(id,label,value=""){
+ return `
+ <div class="field">
+  <label>${label}</label>
+  <input id="${id}" value="${value||""}" inputmode="decimal">
+ </div>`;
 }
 
-function renderWorkout(){
+function body(){
+ const old=thisMondayCheckin();
 
-  const day=dayName();
-  const workout=workouts[day];
+ if(!isMonday()){
+  return `
+  <h1>Body</h1>
+  <div class="sub">Weekly Monday check-in</div>
 
-  document.getElementById("workoutTitle").textContent=
-    workout.name;
+  <div class="notice warn">
+   Your official body check-in is every Monday.
+   <br><br>
+   Next check-in: <b>Monday</b>
+  </div>
 
-  document.getElementById("workoutSubtitle").textContent=
-    day==="Sunday" ? "Recovery day." :
-    day+" • "+workout.exercises.length+" exercises";
+  ${bodyHistory()}
+  `;
+ }
 
-  const box=document.getElementById("exerciseList");
+ return `
+ <h1>Body Check-in</h1>
+ <div class="sub">Weekly Monday measurement</div>
 
-  if(day==="Sunday"){
-    box.innerHTML=`
-      <div class="card empty">
-        <h2>Rest Day</h2>
-        <p>Recover. Eat well. Get ready for the next session.</p>
-      </div>`;
-    return;
+ <div class="notice good">
+  ${old?"You already have a check-in for this Monday. Saving again will update it.":"Today's Monday check-in is ready."}
+ </div>
+
+ <div class="card">
+  <h2>Basic</h2>
+
+  <div class="fieldgrid">
+   ${input("mWeight","Weight (kg)",old?.weight||state.weight)}
+   ${input("mHeight","Height (cm)",old?.height||state.settings.height||180)}
+
+   <div class="field">
+    <label>Sex</label>
+    <select id="mSex">
+     <option value="male" ${state.settings.sex==="male"?"selected":""}>Male</option>
+     <option value="female" ${state.settings.sex==="female"?"selected":""}>Female</option>
+    </select>
+   </div>
+
+   ${input("mNeck","Neck (cm)",old?.neck)}
+  </div>
+ </div>
+
+ <div class="card">
+  <h2>Measurements</h2>
+
+  <div class="fieldgrid">
+   ${input("mShoulders","Shoulders (cm)",old?.shoulders)}
+   ${input("mChest","Chest (cm)",old?.chest)}
+   ${input("mWaist","Waist (cm)",old?.waist)}
+   ${input("mHips","Hips (cm)",old?.hips)}
+   ${input("mLeftArm","Left arm (cm)",old?.leftArm)}
+   ${input("mRightArm","Right arm (cm)",old?.rightArm)}
+   ${input("mLeftForearm","Left forearm (cm)",old?.leftForearm)}
+   ${input("mRightForearm","Right forearm (cm)",old?.rightForearm)}
+   ${input("mLeftThigh","Left thigh (cm)",old?.leftThigh)}
+   ${input("mRightThigh","Right thigh (cm)",old?.rightThigh)}
+   ${input("mLeftCalf","Left calf (cm)",old?.leftCalf)}
+   ${input("mRightCalf","Right calf (cm)",old?.rightCalf)}
+  </div>
+
+  <div class="field">
+   <label>Notes</label>
+   <textarea id="mNotes">${old?.notes||""}</textarea>
+  </div>
+
+  <div class="actions">
+   <button class="btn" onclick="saveCheckin()">Save Monday Check-in</button>
+  </div>
+ </div>
+
+ <div class="card">
+  <h2>Automatic body-fat estimate</h2>
+  <div class="tiny">
+   Uses your height, neck and waist measurements with the US Navy formula.
+   It is an estimate, not a clinical measurement.
+  </div>
+ </div>
+
+ ${bodyHistory()}
+ `;
+}
+
+function bodyHistory(){
+ const arr=state.checkins
+  .slice()
+  .sort((a,b)=>b.date.localeCompare(a.date));
+
+ return `
+ <div class="section">Check-in history</div>
+
+ <div class="card">
+ ${
+ arr.length
+ ?
+ arr.map(c=>`
+  <div class="listrow">
+   <span>
+    <b>${c.date}</b>
+    <div class="tiny">
+     Waist ${c.waist||"—"} cm
+    </div>
+   </span>
+   <span>
+    ${c.weight||"—"} kg
+    <br>
+    <span class="pill">${c.bf?c.bf.toFixed(1)+"% BF":"—"}</span>
+   </span>
+  </div>
+ `).join("")
+ :
+ `<div class="empty">No Monday check-ins yet.</div>`
+ }
+ </div>
+
+ <div class="actions">
+  <button class="btn secondary" onclick="go('progress')">
+   View Progress
+  </button>
+ </div>
+ `;
+}
+
+/* =========================
+   CHARTS
+========================= */
+
+function chart(data,key,unit){
+ if(data.length<2){
+  return `<div class="empty">Add at least 2 Monday check-ins to see this graph.</div>`;
+ }
+
+ const vals=data
+  .map(x=>+x[key])
+  .filter(x=>Number.isFinite(x)&&x>0);
+
+ if(!vals.length) return `<div class="empty">No data yet.</div>`;
+
+ const min=Math.min(...vals);
+ const max=Math.max(...vals);
+ const range=max-min||1;
+
+ const W=640,H=190;
+ const pad=28;
+
+ const pts=data
+  .map((x,i)=>{
+   const v=+x[key];
+   if(!v)return null;
+
+   const px=pad+(i/(data.length-1))*(W-pad*2);
+   const py=H-pad-((v-min)/range)*(H-pad*2);
+
+   return [px,py,v,x.date];
+  })
+  .filter(Boolean);
+
+ const path=pts.map((p,i)=>
+  `${i?"L":"M"} ${p[0]} ${p[1]}`
+ ).join(" ");
+
+ return `
+ <svg class="chart" viewBox="0 0 ${W} ${H}">
+  <line x1="${pad}" y1="${H-pad}" x2="${W-pad}" y2="${H-pad}"
+   stroke="#292d34"/>
+  <path d="${path}" class="chartline"/>
+  ${pts.map(p=>`
+   <circle cx="${p[0]}" cy="${p[1]}" r="4" class="chartdot"/>
+  `).join("")}
+  <text x="${pad}" y="14" class="chartlabel">
+   ${max.toFixed(1)}${unit}
+  </text>
+  <text x="${pad}" y="${H-5}" class="chartlabel">
+   ${min.toFixed(1)}${unit}
+  </text>
+  <text x="${W-pad-70}" y="${H-5}" class="chartlabel">
+   ${pts[pts.length-1][3]}
+  </text>
+ </svg>
+ `;
+}
+
+function progress(){
+ const data=state.checkins
+  .slice()
+  .sort((a,b)=>a.date.localeCompare(b.date));
+
+ const metrics=[
+  ["weight","Weight"," kg"],
+  ["bf","Body Fat","%"],
+  ["waist","Waist"," cm"],
+  ["chest","Chest"," cm"],
+  ["shoulders","Shoulders"," cm"],
+  ["hips","Hips"," cm"],
+  ["leftArm","Left Arm"," cm"],
+  ["rightArm","Right Arm"," cm"],
+  ["leftForearm","Left Forearm"," cm"],
+  ["rightForearm","Right Forearm"," cm"],
+  ["leftThigh","Left Thigh"," cm"],
+  ["rightThigh","Right Thigh"," cm"],
+  ["leftCalf","Left Calf"," cm"],
+  ["rightCalf","Right Calf"," cm"]
+ ];
+
+ return `
+ <h1>Progress</h1>
+ <div class="sub">Your weekly Monday trends</div>
+
+ <div class="card">
+  <div class="row">
+   <b>Weight goal</b>
+   <span>${state.goalWeight||75} kg</span>
+  </div>
+  ${
+   data.length
+   ?
+   `<div class="tiny" style="margin-top:7px">
+    Current: ${data[data.length-1].weight||"—"} kg
+    • Goal: ${state.goalWeight||75} kg
+   </div>`
+   :
+   ""
   }
+ </div>
 
-  box.innerHTML=workout.exercises.map((e,index)=>{
+ ${metrics.map(m=>`
+  <div class="card">
+   <div class="row">
+    <b>${m[1]}</b>
+    <span class="tiny">
+     ${
+      data.length && data[data.length-1][m[0]]
+      ? data[data.length-1][m[0]]+m[2]
+      : "—"
+     }
+    </span>
+   </div>
+   ${chart(data,m[0],m[2])}
+  </div>
+ `).join("")}
+ `;
+}
 
-    let sets="";
+/* =========================
+   STEPS
+========================= */
 
-    for(let s=1;s<=e[1];s++){
-      sets+=`
-      <div class="set">
-        <span>${s}</span>
-        <input type="number" placeholder="kg" data-ex="${index}" data-set="${s}" class="kg">
-        <input type="number" placeholder="reps" data-ex="${index}" data-set="${s}" class="reps">
-        <button class="done" onclick="this.classList.toggle('checked')">✓</button>
-      </div>`;
-    }
+function steps(){
+ const todaySteps=state.steps[today()]||0;
+ const goal=state.settings.stepGoal||10000;
 
-    return`
-    <div class="exercise">
-      <div class="exercise-title">
-        <strong>${index+1}. ${e[0]}</strong>
-        <span class="tag">${e[1]} × ${e[2]}</span>
-      </div>
+ const dates=Object.keys(state.steps).sort();
+ const last7=dates.slice(-7);
 
-      ${sets}
-    </div>`;
-  }).join("");
+ const avg=last7.length
+  ? Math.round(
+   last7.reduce((sum,d)=>sum+(+state.steps[d]||0),0)/last7.length
+  )
+  : 0;
+
+ return `
+ <h1>Steps</h1>
+ <div class="sub">Daily activity tracking</div>
+
+ <div class="statgrid">
+  <div class="stat">
+   <b>${Number(todaySteps).toLocaleString()}</b>
+   <small>Today</small>
+  </div>
+  <div class="stat">
+   <b>${Number(goal).toLocaleString()}</b>
+   <small>Goal</small>
+  </div>
+  <div class="stat">
+   <b>${avg.toLocaleString()}</b>
+   <small>7-day avg</small>
+  </div>
+ </div>
+
+ <div class="card">
+  <h2>Today's steps</h2>
+
+  ${input("stepInput","Steps",todaySteps)}
+  ${input("stepGoal","Daily goal",goal)}
+
+  <div class="progress">
+   <i style="width:${Math.min(100,todaySteps/goal*100)}%"></i>
+  </div>
+
+  <div class="tiny">
+   ${Math.round(todaySteps/goal*100)}% of today's goal
+  </div>
+
+  <div class="actions">
+   <button class="btn" onclick="saveSteps()">Save Steps</button>
+  </div>
+ </div>
+
+ <div class="card">
+  <h2>Recent days</h2>
+
+  ${
+   dates.length
+   ?
+   dates.slice(-14).reverse().map(d=>`
+    <div class="listrow">
+     <span>${d}</span>
+     <span>
+      ${Number(state.steps[d]).toLocaleString()}
+      <span class="pill">
+       ${Math.round(state.steps[d]/goal*100)}%
+      </span>
+     </span>
+    </div>
+   `).join("")
+   :
+   `<div class="empty">No step entries yet.</div>`
+  }
+ </div>
+ `;
+}
+
+function saveSteps(){
+ const n=Math.max(
+  0,
+  Math.floor(+document.getElementById("stepInput").value||0)
+ );
+
+ const goal=Math.max(
+  1,
+  Math.floor(+document.getElementById("stepGoal").value||10000)
+ );
+
+ state.steps[today()]=n;
+ state.settings.stepGoal=goal;
+
+ save();
+ render();
+}
+
+/* =========================
+   DIET
+========================= */
+
+function diet(){
+ const d=state.diet[today()]||{
+  meals:[],
+  cal:0,
+  p:0,
+  c:0,
+  f:0
+ };
+
+ const g=state.settings;
+
+ return `
+ <h1>Diet</h1>
+ <div class="sub">Daily nutrition tracker</div>
+
+ <div class="statgrid">
+  <div class="stat">
+   <b>${d.cal||0}</b>
+   <small>kcal / ${g.calorieGoal}</small>
+  </div>
+
+  <div class="stat">
+   <b>${d.p||0}g</b>
+   <small>protein / ${g.proteinGoal}g</small>
+  </div>
+
+  <div class="stat">
+   <b>${d.c||0}g</b>
+   <small>carbs / ${g.carbGoal}g</small>
+  </div>
+ </div>
+
+ <div class="card">
+  <div class="row">
+   <b>Calories</b>
+   <span>${Math.max(0,g.calorieGoal-d.cal)} remaining</span>
+  </div>
+
+  <div class="progress">
+   <i style="width:${Math.min(100,d.cal/g.calorieGoal*100)}%"></i>
+  </div>
+
+  <div class="tiny">
+   Protein ${d.p||0}/${g.proteinGoal}g
+   • Carbs ${d.c||0}/${g.carbGoal}g
+   • Fat ${d.f||0}/${g.fatGoal}g
+  </div>
+ </div>
+
+ <div class="card">
+  <h2>Add Food</h2>
+
+  <div class="fieldgrid">
+   ${input("foodName","Food")}
+   ${input("foodCal","Calories")}
+   ${input("foodP","Protein (g)")}
+   ${input("foodC","Carbs (g)")}
+   ${input("foodF","Fat (g)")}
+  </div>
+
+  <div class="field">
+   <label>Meal</label>
+   <select id="foodMeal">
+    <option>Breakfast</option>
+    <option>Lunch</option>
+    <option>Pre-workout</option>
+    <option>Post-workout</option>
+    <option>Dinner</option>
+    <option>Snack</option>
+   </select>
+  </div>
+
+  <div class="actions">
+   <button class="btn" onclick="addFood()">Add Food</button>
+  </div>
+ </div>
+
+ <div class="card">
+  <h2>Today's food</h2>
+
+  ${
+   d.meals.length
+   ?
+   d.meals.map((m,i)=>`
+    <div class="meal">
+     <div class="row">
+      <span>
+       <b>${m.name}</b>
+       <div class="tiny">${m.meal}</div>
+      </span>
+      <button class="iconbtn secondary" onclick="removeFood(${i})">×</button>
+     </div>
+
+     <div class="tiny" style="margin-top:6px">
+      ${m.cal} kcal
+      • P ${m.p}g
+      • C ${m.c}g
+      • F ${m.f}g
+     </div>
+    </div>
+   `).join("")
+   :
+   `<div class="empty">Nothing logged today.</div>`
+  }
+ </div>
+
+ <div class="card">
+  <div class="row">
+   <b>Diet targets</b>
+   <button class="btn secondary" onclick="editDietGoals()">Edit</button>
+  </div>
+
+  <div class="tiny" style="margin-top:7px">
+   ${g.calorieGoal} kcal
+   • ${g.proteinGoal}g protein
+   • ${g.carbGoal}g carbs
+   • ${g.fatGoal}g fat
+  </div>
+ </div>
+ `;
+}
+
+function addFood(){
+ const name=document.getElementById("foodName").value.trim();
+
+ if(!name){
+  alert("Enter a food name.");
+  return;
+ }
+
+ const food={
+  name,
+  meal:document.getElementById("foodMeal").value,
+  cal:+document.getElementById("foodCal").value||0,
+  p:+document.getElementById("foodP").value||0,
+  c:+document.getElementById("foodC").value||0,
+  f:+document.getElementById("foodF").value||0
+ };
+
+ const d=state.diet[today()]||{
+  meals:[],cal:0,p:0,c:0,f:0
+ };
+
+ d.meals.push(food);
+ d.cal+=food.cal;
+ d.p+=food.p;
+ d.c+=food.c;
+ d.f+=food.f;
+
+ state.diet[today()]=d;
+
+ save();
+ render();
+}
+
+function removeFood(i){
+ const d=state.diet[today()];
+ if(!d)return;
+
+ const m=d.meals[i];
+
+ d.cal-=m.cal;
+ d.p-=m.p;
+ d.c-=m.c;
+ d.f-=m.f;
+
+ d.meals.splice(i,1);
+
+ save();
+ render();
+}
+
+function editDietGoals(){
+ const c=+prompt(
+  "Daily calories",
+  state.settings.calorieGoal
+ )||state.settings.calorieGoal;
+
+ const p=+prompt(
+  "Protein grams",
+  state.settings.proteinGoal
+ )||state.settings.proteinGoal;
+
+ const carbs=+prompt(
+  "Carbs grams",
+  state.settings.carbGoal
+ )||state.settings.carbGoal;
+
+ const f=+prompt(
+  "Fat grams",
+  state.settings.fatGoal
+ )||state.settings.fatGoal;
+
+ state.settings.calorieGoal=c;
+ state.settings.proteinGoal=p;
+ state.settings.carbGoal=carbs;
+ state.settings.fatGoal=f;
+
+ save();
+ render();
+}
+
+/* =========================
+   WORKOUT
+========================= */
+
+function workout(){
+ const day=state.activeDay||dayName();
+ const d=WORKOUTS[day];
+
+ if(day==="Sun"){
+  return `
+  <h1>Recovery</h1>
+  <div class="sub">Sunday</div>
+  <div class="card empty">
+   Recovery is part of the program.
+  </div>
+  `;
+ }
+
+ const date=state.activeDate||today();
+ const log=state.logs[date]||{ex:{}};
+
+ const completed=d.ex.filter(
+  e=>log.ex[e[0]]?.done
+ ).length;
+
+ return `
+ <div class="row">
+  <div>
+   <h1>${d.name}</h1>
+   <div class="sub">${day} • ${d.sub}</div>
+  </div>
+  <button class="btn secondary" onclick="go('home')">×</button>
+ </div>
+
+ <div class="card">
+  <div class="row">
+   <span class="tag">Workout progress</span>
+   <span class="tiny">${completed}/${d.ex.length}</span>
+  </div>
+
+  <div class="progress">
+   <i style="width:${completed/d.ex.length*100}%"></i>
+  </div>
+ </div>
+
+ <div class="card">
+  ${d.ex.map((e,i)=>exercise(e,i,log)).join("")}
+ </div>
+
+ <div class="actions">
+  <button class="btn" onclick="finishWorkout()">
+   Finish Workout
+  </button>
+ </div>
+
+ <div class="tiny" style="margin-top:12px">
+  Warm-ups are separate. Compounds: 2–3 min rest.
+  Isolations: 60–90 sec. Work around 1–2 RIR initially
+  and 0–1 RIR on final hard sets.
+ </div>
+ `;
+}
+
+function previousExercise(name){
+ const arr=[];
+
+ for(const [date,l] of Object.entries(state.logs)){
+  if(l.ex?.[name]){
+   arr.push({
+    date,
+    ...l.ex[name]
+   });
+  }
+ }
+
+ arr.sort((a,b)=>b.date.localeCompare(a.date));
+
+ return arr[0];
+}
+
+function exercise(e,index,log){
+ const[name,focus,range,sets]=e;
+
+ const old=previousExercise(name);
+ const current=log.ex[name]||{s:[]};
+
+ let html="";
+
+ for(let i=0;i<sets;i++){
+  const s=current.s[i]||{};
+
+  html+=`
+   <div class="setgrid">
+    <span>Set ${i+1}</span>
+
+    <input
+     inputmode="decimal"
+     placeholder="kg"
+     value="${s.w||""}"
+     onchange="editSet('${esc(name)}',${i},'w',this.value)"
+    >
+
+    <input
+     inputmode="numeric"
+     placeholder="reps"
+     value="${s.r||""}"
+     onchange="editSet('${esc(name)}',${i},'r',this.value)"
+    >
+   </div>
+  `;
+ }
+
+ let previous="No previous log";
+
+ if(old){
+  previous=old.s.map(s=>
+   s.w&&s.r
+   ? `${s.w}kg × ${s.r}`
+   : "—"
+  ).join(" / ");
+ }
+
+ return `
+ <div class="exercise">
+
+  <div class="row">
+   <div>
+    <div class="exname">${name}</div>
+    <div class="focus">
+     ${focus} • ${range} • ${sets} working sets
+    </div>
+   </div>
+
+   <input
+    type="checkbox"
+    ${current.done?"checked":""}
+    onchange="markExercise('${esc(name)}',this.checked)"
+   >
+  </div>
+
+  ${html}
+
+  <div class="tiny" style="margin-top:9px">
+   Previous: <b>${previous}</b>
+  </div>
+
+ </div>
+ `;
+}
+
+function ensureLog(){
+ const date=state.activeDate||today();
+
+ if(!state.logs[date]){
+  state.logs[date]={ex:{}};
+ }
+
+ return state.logs[date];
+}
+
+function editSet(name,index,key,value){
+ const l=ensureLog();
+
+ l.ex[name]=l.ex[name]||{s:[]};
+ l.ex[name].s[index]=l.ex[name].s[index]||{};
+
+ l.ex[name].s[index][key]=value;
+
+ save();
+}
+
+function markExercise(name,value){
+ const l=ensureLog();
+
+ l.ex[name]=l.ex[name]||{s:[]};
+ l.ex[name].done=value;
+
+ save();
+ render();
 }
 
 function finishWorkout(){
+ const l=ensureLog();
 
-  const day=dayName();
+ l.finishedAt=new Date().toISOString();
 
-  if(day==="Sunday"){
-    alert("Sunday is your recovery day.");
-    return;
-  }
+ save();
 
-  const session={
-    date:new Date().toISOString(),
-    day:day,
-    workout:workouts[day].name,
-    exercises:[]
-  };
-
-  document.querySelectorAll(".exercise").forEach((card,i)=>{
-
-    const exercise=workouts[day].exercises[i];
-
-    const sets=[];
-
-    card.querySelectorAll(".set").forEach(set=>{
-      const kg=set.querySelector(".kg").value;
-      const reps=set.querySelector(".reps").value;
-
-      if(kg||reps){
-        sets.push({
-          kg:kg,
-          reps:reps,
-          completed:set.querySelector(".done").classList.contains("checked")
-        });
-      }
-    });
-
-    session.exercises.push({
-      name:exercise[0],
-      sets:sets
-    });
-  });
-
-  data.sessions.push(session);
-  save();
-
-  alert("Workout saved. Good work.");
-
-  showPage("history");
+ alert("Workout saved. Nice work.");
+ go("home");
 }
 
-function renderHistory(){
+function startWorkout(day){
+ state.activeDay=day;
+ state.activeDate=dateForDay(day);
+ state.page="workout";
 
-  const box=document.getElementById("historyList");
+ save();
+ render();
+}
 
-  if(!data.sessions.length){
-    box.innerHTML='<div class="card empty">No completed workouts yet.<br>Your training history will appear here.</div>';
-    return;
+function dateForDay(day){
+ const map={
+  Sun:0,
+  Mon:1,
+  Tue:2,
+  Wed:3,
+  Thu:4,
+  Fri:5,
+  Sat:6
+ };
+
+ const now=new Date();
+ let diff=map[day]-now.getDay();
+
+ if(diff>0)diff-=7;
+
+ const d=new Date(now);
+ d.setDate(now.getDate()+diff);
+
+ return d.toISOString().slice(0,10);
+}
+
+/* =========================
+   HOME
+========================= */
+
+function home(){
+ const day=dayName();
+ const workout=WORKOUTS[day];
+
+ const todayLog=state.logs[today()]||{ex:{}};
+
+ const completed=workout.ex.filter(
+  e=>todayLog.ex[e[0]]?.done
+ ).length;
+
+ const pct=workout.ex.length
+  ? Math.round(completed/workout.ex.length*100)
+  : 0;
+
+ const latest=state.checkins
+  .slice()
+  .sort((a,b)=>b.date.localeCompare(a.date))[0];
+
+ const weight=latest?.weight||state.weight||"—";
+ const bf=latest?.bf?latest.bf.toFixed(1)+"%":"—";
+ const steps=state.steps[today()]||0;
+
+ return `
+ <h1>${day==="Sun"?"Recovery":"Today"}</h1>
+
+ <div class="sub">
+  ${new Date().toLocaleDateString(undefined,{
+   weekday:"long",
+   month:"short",
+   day:"numeric"
+  })}
+ </div>
+
+ <div class="card">
+  <div class="tag">${day}</div>
+  <h2 style="margin-top:5px">${workout.name}</h2>
+  <div class="sub">${workout.sub}</div>
+
+  ${
+   workout.ex.length
+   ?
+   `
+   <div class="progress">
+    <i style="width:${pct}%"></i>
+   </div>
+
+   <div class="tiny">
+    ${completed}/${workout.ex.length} exercises complete
+   </div>
+
+   <div class="actions">
+    <button class="btn" onclick="startWorkout('${day}')">
+     ${completed?"Continue":"Start Workout"}
+    </button>
+   </div>
+   `
+   :
+   `<div class="notice" style="margin-top:12px">
+    Recovery day. Get ready for Monday.
+   </div>`
   }
+ </div>
 
-  box.innerHTML=[...data.sessions].reverse().map(x=>`
-    <div class="card">
-      <div class="row">
-        <div>
-          <strong>${x.workout}</strong>
-          <div class="muted small">
-            ${new Date(x.date).toLocaleDateString()}
-          </div>
-        </div>
-        <span>✓</span>
-      </div>
+ <div class="statgrid">
+  <div class="stat">
+   <b>${weight}</b>
+   <small>Weight kg</small>
+  </div>
+
+  <div class="stat">
+   <b>${bf}</b>
+   <small>Body fat</small>
+  </div>
+
+  <div class="stat">
+   <b>${Number(steps).toLocaleString()}</b>
+   <small>Steps</small>
+  </div>
+ </div>
+
+ <div class="card">
+  <div class="row">
+   <b>Monday Check-in</b>
+   <span class="tiny">
+    ${isMonday()?"Due today":"Weekly"}
+   </span>
+  </div>
+
+  <div class="tiny" style="margin-top:7px">
+   Weight, measurements and automatic body-fat estimate.
+  </div>
+
+  <div class="actions">
+   <button class="btn secondary" onclick="go('body')">
+    ${isMonday()?"Do Check-in":"View Body"}
+   </button>
+  </div>
+ </div>
+
+ <div class="card">
+  <div class="row">
+   <b>Goal</b>
+   <span>${state.goalWeight||75} kg</span>
+  </div>
+
+  <div class="tiny" style="margin-top:7px">
+   Current ${weight} kg
+  </div>
+ </div>
+ `;
+}
+
+/* =========================
+   HISTORY
+========================= */
+
+function historyPage(){
+ const rows=Object.entries(state.logs)
+  .sort((a,b)=>b[0].localeCompare(a[0]));
+
+ return `
+ <h1>History</h1>
+ <div class="sub">Your training and body history</div>
+
+ <div class="section">Workouts</div>
+
+ ${
+  rows.length
+  ?
+  rows.map(([date,l])=>`
+   <div class="card">
+    <div class="row">
+     <b>${date}</b>
+     <span class="tag">
+      ${Object.values(l.ex||{}).filter(x=>x.done).length}
+      exercises
+     </span>
     </div>
-  `).join("");
+
+    <div class="tiny" style="margin-top:8px">
+     ${
+      Object.entries(l.ex||{})
+      .filter(([n,x])=>x.done)
+      .map(([n,x])=>
+       `${n}: ${
+        x.s.map(s=>
+         s.w&&s.r
+         ? s.w+"kg × "+s.r
+         : "—"
+        ).join(", ")
+       }`
+      )
+      .join("<br>")
+     }
+    </div>
+   </div>
+  `).join("")
+  :
+  `<div class="card empty">No workouts logged yet.</div>`
+ }
+
+ <div class="section">Monday Check-ins</div>
+
+ <div class="card">
+ ${
+  state.checkins.length
+  ?
+  state.checkins
+   .slice()
+   .sort((a,b)=>b.date.localeCompare(a.date))
+   .map(c=>`
+    <div class="listrow">
+     <span>${c.date}</span>
+     <span>
+      ${c.weight||"—"} kg
+      • ${c.bf?c.bf.toFixed(1)+"%":"—"}
+     </span>
+    </div>
+   `).join("")
+  :
+  `<div class="empty">No check-ins yet.</div>`
+ }
+ </div>
+
+ <div class="actions">
+  <button class="btn secondary" onclick="backup()">
+   Export Backup
+  </button>
+
+  <button class="btn secondary" onclick="restore()">
+   Import Backup
+  </button>
+ </div>
+ `;
 }
 
-function renderSettings(){
-  document.getElementById("goalInput").value=data.goal;
+/* =========================
+   SETTINGS
+========================= */
+
+function settings(){
+ return `
+ <h1>Settings</h1>
+ <div class="sub">IronLOG preferences</div>
+
+ <div class="card">
+  <h2>Goals</h2>
+
+  ${input("goalInput","Goal weight (kg)",state.goalWeight||75)}
+
+  <div class="actions">
+   <button class="btn" onclick="saveGoals()">
+    Save Goal
+   </button>
+  </div>
+ </div>
+
+ <div class="card">
+  <h2>Backup</h2>
+
+  <div class="tiny">
+   Your IronLOG data is stored locally in this browser.
+   Export a backup regularly so you don't lose it.
+  </div>
+
+  <div class="actions">
+   <button class="btn secondary" onclick="backup()">
+    Export Data
+   </button>
+
+   <button class="btn secondary" onclick="restore()">
+    Import Data
+   </button>
+  </div>
+ </div>
+
+ <div class="card">
+  <h2>Reset</h2>
+
+  <div class="tiny">
+   This permanently clears all locally stored IronLOG data.
+  </div>
+
+  <div class="actions">
+   <button class="btn secondary" onclick="resetData()">
+    Reset IronLOG
+   </button>
+  </div>
+ </div>
+ `;
 }
 
-function saveGoal(){
+function saveGoals(){
+ const v=+document.getElementById("goalInput").value;
 
-  const goal=parseFloat(document.getElementById("goalInput").value);
-
-  if(!goal)return;
-
-  data.goal=goal;
+ if(v>0){
+  state.goalWeight=v;
   save();
-
-  renderHome();
-
-  alert("Goal updated.");
+  render();
+ }
 }
 
-function exportData(){
+function resetData(){
+ if(!confirm("Delete all IronLOG data?"))return;
 
-  const blob=new Blob(
-    [JSON.stringify(data,null,2)],
-    {type:"application/json"}
-  );
+ localStorage.removeItem(STORAGE);
+ localStorage.removeItem("ironlog_v1");
 
-  const url=URL.createObjectURL(blob);
-
-  const a=document.createElement("a");
-  a.href=url;
-  a.download="ironlog-backup.json";
-  a.click();
-
-  URL.revokeObjectURL(url);
+ location.reload();
 }
 
-function importData(event){
+/* =========================
+   BACKUP
+========================= */
 
-  const file=event.target.files[0];
+function backup(){
+ const blob=new Blob(
+  [JSON.stringify(state,null,2)],
+  {type:"application/json"}
+ );
+
+ const a=document.createElement("a");
+
+ a.href=URL.createObjectURL(blob);
+ a.download="ironlog-backup.json";
+ a.click();
+
+ setTimeout(()=>{
+  URL.revokeObjectURL(a.href);
+ },1000);
+}
+
+function restore(){
+ const input=document.createElement("input");
+
+ input.type="file";
+ input.accept=".json";
+
+ input.onchange=()=>{
+  const file=input.files[0];
+
   if(!file)return;
 
   const reader=new FileReader();
 
   reader.onload=()=>{
-    try{
-      data=JSON.parse(reader.result);
-      save();
-      renderHome();
-      alert("Backup imported.");
-    }catch{
-      alert("That backup file is not valid.");
+   try{
+    const imported=JSON.parse(reader.result);
+
+    if(!imported || typeof imported!=="object"){
+     throw new Error();
     }
+
+    state=Object.assign({
+     page:"home",
+     logs:{},
+     checkins:[],
+     steps:{},
+     diet:{},
+     goalWeight:75,
+     settings:{
+      height:180,
+      sex:"male",
+      stepGoal:10000,
+      calorieGoal:2200,
+      proteinGoal:100,
+      carbGoal:170,
+      fatGoal:67
+     }
+    },imported);
+
+    save();
+    render();
+
+   }catch(e){
+    alert("Invalid IronLOG backup.");
+   }
   };
 
   reader.readAsText(file);
 }
 
-function resetData(){
+/* =========================
+   NAVIGATION
+========================= */
 
-  if(!confirm("Delete all IronLOG data? This cannot be undone."))return;
+function render(){
+ const p=state.page||"home";
 
-  data={
-    goal:75,
-    checkins:[],
-    sessions:[]
-  };
+ let content;
 
-  save();
-  renderHome();
-  alert("IronLOG data reset.");
+ if(p==="home")content=home();
+ else if(p==="body")content=body();
+ else if(p==="progress")content=progress();
+ else if(p==="steps")content=steps();
+ else if(p==="diet")content=diet();
+ else if(p==="workout")content=workout();
+ else if(p==="history")content=historyPage();
+ else if(p==="settings")content=settings();
+ else content=home();
+
+ root.innerHTML=`
+  <div class="app">
+
+   <header>
+    <div class="logo">
+     Iron<span>LOG</span>
+    </div>
+
+    <button class="btn secondary" onclick="backup()">
+     ↥
+    </button>
+   </header>
+
+   ${content}
+
+  </div>
+
+  <nav class="nav">
+   <div class="navin">
+
+    <button
+     class="${p==="home"?"active":""}"
+     onclick="go('home')">
+     Home
+    </button>
+
+    <button
+     class="${p==="workout"?"active":""}"
+     onclick="go('workout')">
+     Workout
+    </button>
+
+    <button
+     class="${p==="body"||p==="progress"?"active":""}"
+     onclick="go('body')">
+     Body
+    </button>
+
+    <button
+     class="${p==="steps"||p==="diet"?"active":""}"
+     onclick="go('steps')">
+     Activity
+    </button>
+
+    <button
+     class="${p==="history"||p==="settings"?"active":""}"
+     onclick="go('history')">
+     More
+    </button>
+
+   </div>
+  </nav>
+ `;
 }
 
-renderHome();
+/* More page shortcut */
+document.addEventListener("click",function(e){
+ if(e.target.closest(".nav button") && state.page==="history"){
+  // history remains the main More area
+ }
+});
 
+render();
 </script>
 </body>
 </html>
