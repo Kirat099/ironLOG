@@ -1,1711 +1,2303 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0e0f11">
+<meta name="theme-color" content="#090b0e">
 <title>IronLOG</title>
 
 <style>
 :root{
-  --bg:#0e0f11;
-  --card:#17191d;
-  --card2:#1d2025;
-  --text:#f3f4f6;
-  --muted:#969ba5;
-  --line:#292d34;
-  --accent:#d7ff3f;
-  --danger:#ff6464;
-  --good:#78e08f;
+  --bg:#090b0e;
+  --card:#11151a;
+  --card2:#171c22;
+  --line:#252c34;
+  --text:#f2f4f7;
+  --muted:#8e98a5;
+  --accent:#d7ff4f;
+  --danger:#ff6675;
 }
+
 *{box-sizing:border-box}
+
 body{
   margin:0;
   background:var(--bg);
   color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
-button,input,select,textarea{font:inherit}
+
+button,input{font:inherit}
 button{color:inherit}
+
 .app{
-  max-width:720px;
+  max-width:760px;
   margin:auto;
+  min-height:100vh;
   padding:18px 16px 105px;
 }
+
 header{
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  margin:4px 0 22px;
+  justify-content:space-between;
+  margin-bottom:24px;
 }
+
 .logo{
   font-size:25px;
-  font-weight:800;
-  letter-spacing:-.04em;
+  font-weight:850;
+  letter-spacing:-1px;
 }
+
 .logo span{color:var(--accent)}
-h1{font-size:28px;margin:0 0 5px}
-h2{font-size:20px;margin:0 0 8px}
-.sub{color:var(--muted);font-size:14px}
-.tiny{color:var(--muted);font-size:11px}
+
+.top-actions{
+  display:flex;
+  gap:8px;
+}
+
+.icon{
+  width:42px;
+  height:42px;
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  font-size:18px;
+}
+
+h1{
+  font-size:29px;
+  margin:0 0 5px;
+  letter-spacing:-.7px;
+}
+
+.sub{
+  color:var(--muted);
+  font-size:14px;
+}
+
 .card{
   background:var(--card);
   border:1px solid var(--line);
-  border-radius:14px;
-  padding:15px;
-  margin:10px 0;
+  border-radius:16px;
+  padding:16px;
+  margin-top:14px;
 }
+
 .row{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:10px;
+  gap:12px;
 }
-.tag{
-  color:var(--accent);
+
+.tag,.pill{
+  display:inline-flex;
+  padding:5px 9px;
+  border-radius:999px;
+  background:var(--card2);
+  color:var(--muted);
   font-size:11px;
   font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.08em;
 }
-.statgrid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-}
-.stat{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:13px;
-}
-.stat b{font-size:20px;display:block}
-.stat small{font-size:11px;color:var(--muted)}
+
+.tag{color:var(--accent)}
+
 .btn{
   border:0;
-  border-radius:9px;
-  padding:10px 13px;
   background:var(--accent);
-  color:#111;
-  font-weight:750;
+  color:#090b0e;
+  font-weight:800;
+  border-radius:11px;
+  padding:12px 15px;
 }
-.secondary{
+
+.btn.secondary{
   background:var(--card2);
   color:var(--text);
   border:1px solid var(--line);
 }
+
+.btn.danger{
+  background:#2a1519;
+  color:#ff8d99;
+  border:1px solid #482027;
+}
+
 .actions{
   display:flex;
   gap:8px;
-  margin-top:12px;
+  flex-wrap:wrap;
+  margin-top:14px;
 }
-.actions .btn{flex:1}
-.fieldgrid{
+
+.statgrid{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(3,1fr);
   gap:9px;
+  margin-top:14px;
 }
-.field{margin-top:9px}
-.field label{
+
+.stat{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:13px;
+}
+
+.stat b{
+  display:block;
+  font-size:20px;
+}
+
+.stat small{
   display:block;
   color:var(--muted);
   font-size:11px;
-  margin-bottom:5px;
+  margin-top:3px;
 }
-input,select,textarea{
-  width:100%;
-  background:var(--card2);
-  border:1px solid var(--line);
-  border-radius:8px;
-  padding:10px;
-  color:var(--text);
-  outline:none;
-}
-textarea{min-height:70px;resize:vertical}
-input:focus,select:focus,textarea:focus{
-  border-color:var(--accent);
-}
+
 .progress{
-  height:6px;
-  background:var(--line);
-  border-radius:8px;
+  height:7px;
+  background:#20262d;
+  border-radius:20px;
   overflow:hidden;
-  margin:12px 0 5px;
+  margin-top:13px;
 }
+
 .progress i{
   display:block;
   height:100%;
   background:var(--accent);
+  border-radius:20px;
 }
-.section{
-  font-size:18px;
-  font-weight:750;
-  margin:20px 0 8px;
+
+.tiny{
+  font-size:12px;
+  color:var(--muted);
 }
-.notice{
-  background:var(--card2);
-  border:1px solid var(--line);
-  padding:11px 12px;
-  border-radius:9px;
-  font-size:13px;
-}
-.notice.good{border-color:#426c4b}
-.notice.warn{border-color:#765f35}
-.listrow{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  padding:11px 0;
-  border-top:1px solid var(--line);
-}
-.listrow:first-child{border-top:0}
-.pill{
-  background:var(--card2);
-  border-radius:7px;
-  padding:4px 7px;
-  font-size:11px;
-}
-.exercise{
-  padding:15px 0;
-  border-top:1px solid var(--line);
-}
-.exercise:first-child{border-top:0}
-.exname{font-weight:700;font-size:16px}
-.focus{font-size:12px;color:var(--muted);margin-top:3px}
-.setgrid{
-  display:grid;
-  grid-template-columns:45px 1fr 1fr;
-  gap:7px;
-  align-items:center;
-  margin-top:10px;
-}
-.setgrid span{font-size:12px;color:var(--muted)}
-input[type=checkbox]{
-  width:20px;
-  height:20px;
-  accent-color:var(--accent);
-}
-.chart{
-  width:100%;
-  height:210px;
-  display:block;
-}
-.chartline{
-  fill:none;
-  stroke:var(--accent);
-  stroke-width:3;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-.chartdot{fill:var(--accent)}
-.chartlabel{fill:var(--muted);font-size:10px}
-.meal{
-  padding:12px 0;
-  border-top:1px solid var(--line);
-}
-.meal:first-child{border-top:0}
-.nav{
+
+/* Bottom navigation */
+.bottom{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
-  background:rgba(14,15,17,.97);
-  backdrop-filter:blur(12px);
+  background:rgba(9,11,14,.97);
   border-top:1px solid var(--line);
+  padding:8px 10px env(safe-area-inset-bottom);
   z-index:10;
 }
-.navin{
-  max-width:720px;
+
+.nav{
+  max-width:760px;
   margin:auto;
   display:grid;
   grid-template-columns:repeat(5,1fr);
+  gap:5px;
 }
+
 .nav button{
   background:none;
   border:0;
-  padding:10px 3px 12px;
   color:var(--muted);
-  font-size:10px;
+  padding:8px 3px;
+  font-size:11px;
+  font-weight:700;
+  border-radius:10px;
 }
+
 .nav button.active{
   color:var(--accent);
-  font-weight:700;
+  background:#171c20;
 }
-.empty{
-  text-align:center;
-  padding:35px 10px;
+
+/* Forms */
+.fieldgrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:11px;
+}
+
+.field label{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:6px;
+}
+
+.field input{
+  width:100%;
+  background:#0c0f13;
+  border:1px solid var(--line);
+  color:var(--text);
+  border-radius:10px;
+  padding:11px;
+}
+
+.field input:disabled{
+  opacity:.45;
+}
+
+.section{
+  font-weight:800;
+  margin-top:19px;
+}
+
+.notice{
+  padding:12px;
+  border-radius:12px;
+  background:#171c20;
+  border:1px solid var(--line);
+  font-size:13px;
+  color:var(--muted);
+  margin-top:12px;
+}
+
+.notice.good{
+  color:var(--accent);
+}
+
+/* Workout day selector */
+.daybar{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding-bottom:2px;
+  margin-top:14px;
+}
+
+.daybar button{
+  flex:0 0 auto;
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:10px;
+  padding:9px 12px;
+  font-size:12px;
   color:var(--muted);
 }
-@media(max-width:430px){
-  .statgrid{grid-template-columns:repeat(3,1fr)}
-  .fieldgrid{grid-template-columns:1fr 1fr}
+
+.daybar button.active{
+  background:var(--accent);
+  color:#090b0e;
+  border-color:var(--accent);
+  font-weight:800;
+}
+
+/* Exercises */
+.exercise{
+  border-top:1px solid var(--line);
+  padding:15px 0;
+}
+
+.exercise:first-child{
+  border-top:0;
+}
+
+.exercise-title{
+  font-weight:800;
+}
+
+.sets{
+  display:grid;
+  gap:7px;
+  margin-top:10px;
+}
+
+.setrow{
+  display:grid;
+  grid-template-columns:30px 1fr 1fr 42px;
+  gap:6px;
+  align-items:center;
+}
+
+.setrow span{
+  font-size:11px;
+  color:var(--muted);
+}
+
+.setrow input{
+  width:100%;
+  background:#0c0f13;
+  border:1px solid var(--line);
+  color:var(--text);
+  border-radius:8px;
+  padding:9px;
+}
+
+.check{
+  width:28px;
+  height:28px;
+  accent-color:#d7ff4f;
+}
+
+/* Graph */
+.chart{
+  height:170px;
+  background:#0c0f13;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px;
+  margin-top:10px;
+}
+
+.chart svg{
+  width:100%;
+  height:100%;
+}
+
+.empty{
+  text-align:center;
+  color:var(--muted);
+  padding:30px 10px;
+}
+
+/* Settings */
+@media(min-width:700px){
+  .app{
+    padding-bottom:90px;
+  }
 }
 </style>
 </head>
 
 <body>
+
 <div id="root"></div>
 
 <script>
-/* =========================
-   IRONLOG DATA
-========================= */
 
-const WORKOUTS={
-Mon:{
- name:"Push",
- sub:"Chest • Shoulders • Triceps",
- ex:[
-  ["Incline Bench Press","Chest","8–12",2],
-  ["Pec Deck","Chest","10–15",2],
-  ["Shoulder Press Machine","Shoulders","8–12",2],
-  ["Cable Lateral Raise","Shoulders","10–15",2],
-  ["Rope Pushdown","Triceps","8–12",2],
-  ["Overhead Cable Triceps Extension","Triceps","10–15",2]
- ]},
-Tue:{
- name:"Pull",
- sub:"Back • Rear Delts • Biceps",
- ex:[
-  ["Lat Pulldown","Back","8–12",2],
-  ["Incline Bench-Supported Barbell Row","Back","8–12",2],
-  ["Seated Cable Row","Back","8–12",2],
-  ["Cable Crossover Rear-Delt Fly","Rear Delts","10–15",2],
-  ["Preacher Curl","Biceps","8–12",2],
-  ["Rope Hammer Curl","Biceps","8–12",2]
- ]},
-Wed:{
- name:"Legs + Abs",
- sub:"Quads • Hamstrings • Calves • Abs",
- ex:[
-  ["Leg Press","Quads + Glutes","8–12",2],
-  ["Leg Curl","Hamstrings","8–12",2],
-  ["Leg Extension","Quads","10–15",2],
-  ["Standing Calf Raise","Calves","10–15",2],
-  ["Cable Crunch","Abs","10–15",2]
- ]},
-Thu:{
- name:"Chest + Back",
- sub:"Chest • Back",
- ex:[
-  ["Incline Bench Press","Chest","8–12",3],
-  ["High-to-Low Cable Fly","Chest","10–15",3],
-  ["Flat Dumbbell Press","Chest","8–12",3],
-  ["Lat Pulldown","Back","8–12",3],
-  ["Single-Arm Dumbbell Row","Back","8–12",3],
-  ["Straight-Arm Cable Pulldown","Back","10–15",3]
- ]},
-Fri:{
- name:"Shoulders + Arms + Forearms",
- sub:"Shoulders • Biceps • Triceps • Forearms",
- ex:[
-  ["Shoulder Press Machine","Shoulders","8–12",3],
-  ["Cable Lateral Raise","Shoulders","10–15",2],
-  ["Preacher Curl","Biceps","8–12",3],
-  ["Incline Dumbbell Curl","Biceps","8–12",2],
-  ["Rope Pushdown","Triceps","8–12",3],
-  ["Overhead Cable Triceps Extension","Triceps","10–15",2],
-  ["Wrist Curl","Forearms • Superset A","12–15",2],
-  ["Reverse Wrist Curl","Forearms • Superset B","12–15",2]
- ]},
-Sat:{
- name:"Legs + Abs",
- sub:"Posterior Chain • Quads • Calves • Abs",
- ex:[
-  ["Conventional Deadlift","Posterior Chain","6–8",2],
-  ["Leg Press","Quads + Glutes","8–12",3],
-  ["Leg Curl","Hamstrings","8–12",3],
-  ["Leg Extension","Quads","10–15",2],
-  ["Standing Calf Raise","Calves","10–15",3],
-  ["Hanging Knee Raise","Abs","10–15",2]
- ]},
-Sun:{
- name:"Rest",
- sub:"Recovery",
- ex:[]
-}
-};
+const KEY="ironlog_v3";
 
-const STORAGE="ironlog_v2";
+const old=JSON.parse(localStorage.getItem(KEY)||"null");
 
-let state;
+const legacy=
+  JSON.parse(localStorage.getItem("ironlog_v2")||
+             localStorage.getItem("ironlog_v1")||
+             "null");
 
-try{
- state=JSON.parse(
-  localStorage.getItem(STORAGE) ||
-  localStorage.getItem("ironlog_v1") ||
-  "null"
- );
-}catch(e){state=null}
-
-if(!state){
- state={
+let state=old||{
   page:"home",
-  logs:{},
+  activeDay:null,
+  activeDate:null,
   checkins:[],
   steps:{},
+  logs:{},
   diet:{},
-  goalWeight:75,
   settings:{
-   height:180,
-   sex:"male",
-   stepGoal:10000,
-   calorieGoal:2200,
-   proteinGoal:100,
-   carbGoal:170,
-   fatGoal:67
+    goalWeight:75,
+    stepGoal:10000
   }
- }
+};
+
+if(!old && legacy){
+  state={
+    ...state,
+    ...legacy,
+    page:"home",
+    settings:{
+      ...state.settings,
+      ...(legacy.settings||{})
+    }
+  };
 }
 
-state.logs=state.logs||{};
-state.checkins=state.checkins||[];
-state.steps=state.steps||{};
-state.diet=state.diet||{};
-state.settings=state.settings||{};
-
-Object.assign({
- height:180,
- sex:"male",
- stepGoal:10000,
- calorieGoal:2200,
- proteinGoal:100,
- carbGoal:170,
- fatGoal:67
-},state.settings);
+state.settings=state.settings||{
+  goalWeight:75,
+  stepGoal:10000
+};
 
 function save(){
- localStorage.setItem(STORAGE,JSON.stringify(state));
+  localStorage.setItem(KEY,JSON.stringify(state));
 }
 
 function today(){
- return new Date().toISOString().slice(0,10);
+  return new Date().toISOString().slice(0,10);
 }
 
-function dayName(){
- return ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][new Date().getDay()];
+function dayKey(date=today()){
+  return [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat"
+  ][new Date(date+"T12:00:00").getDay()];
 }
 
-function esc(s){
- return String(s).replace(/'/g,"\\'");
-}
+function mondayDate(d=new Date()){
+  let x=new Date(d);
+  let n=x.getDay();
 
-function go(page){
- state.page=page;
- save();
- render();
-}
+  x.setDate(
+    x.getDate()-
+    (n===0?6:n-1)
+  );
 
-/* =========================
-   MONDAY CHECK-IN
-========================= */
-
-function mondayDate(){
- const d=new Date();
- const day=d.getDay();
- const diff=day===0?-6:1-day;
- d.setDate(d.getDate()+diff);
- return d.toISOString().slice(0,10);
+  return x.toISOString().slice(0,10);
 }
 
 function isMonday(){
- return new Date().getDay()===1;
+  return new Date().getDay()===1;
 }
 
-function thisMondayCheckin(){
- return state.checkins.find(x=>x.date===mondayDate());
+function fmt(d){
+  return new Date(d+"T12:00:00")
+    .toLocaleDateString(undefined,{
+      weekday:"short",
+      month:"short",
+      day:"numeric"
+    });
 }
 
-/* US Navy body-fat estimate.
-   Male: height, neck, waist.
-   Female: height, neck, waist, hips.
-*/
-function calculateBF(){
- const h=+document.getElementById("mHeight").value;
- const neck=+document.getElementById("mNeck").value;
- const waist=+document.getElementById("mWaist").value;
- const hips=+document.getElementById("mHips").value;
- const sex=document.getElementById("mSex").value;
+function nextMonday(){
 
- if(!h || !neck || !waist) return null;
+  let d=new Date();
 
- const H=h/2.54;
- const N=neck/2.54;
- const W=waist/2.54;
- const Hip=hips/2.54;
+  let add=(8-d.getDay())%7;
 
- let bf;
+  if(add===0)add=7;
 
- if(sex==="female"){
-  if(!hips) return null;
-  bf=
-   163.205*Math.log10(W+Hip-N)
-   -97.684*Math.log10(H)
-   -78.387;
- }else{
-  if(W<=N) return null;
-  bf=
-   86.010*Math.log10(W-N)
-   -70.041*Math.log10(H)
-   +36.76;
- }
+  d.setDate(d.getDate()+add);
 
- return Math.max(2,Math.min(60,bf));
+  return d.toLocaleDateString(undefined,{
+    weekday:"long",
+    month:"short",
+    day:"numeric"
+  });
 }
 
-function saveCheckin(){
- if(!isMonday()){
-  alert("Body check-ins are available every Monday.");
-  return;
- }
-
- const date=mondayDate();
-
- const c={
-  date,
-  weight:+document.getElementById("mWeight").value||0,
-  neck:+document.getElementById("mNeck").value||0,
-  shoulders:+document.getElementById("mShoulders").value||0,
-  chest:+document.getElementById("mChest").value||0,
-  waist:+document.getElementById("mWaist").value||0,
-  hips:+document.getElementById("mHips").value||0,
-  leftArm:+document.getElementById("mLeftArm").value||0,
-  rightArm:+document.getElementById("mRightArm").value||0,
-  leftForearm:+document.getElementById("mLeftForearm").value||0,
-  rightForearm:+document.getElementById("mRightForearm").value||0,
-  leftThigh:+document.getElementById("mLeftThigh").value||0,
-  rightThigh:+document.getElementById("mRightThigh").value||0,
-  leftCalf:+document.getElementById("mLeftCalf").value||0,
-  rightCalf:+document.getElementById("mRightCalf").value||0,
-  bf:calculateBF(),
-  notes:document.getElementById("mNotes").value
- };
-
- const old=state.checkins.findIndex(x=>x.date===date);
-
- if(old>=0) state.checkins[old]=c;
- else state.checkins.push(c);
-
- state.weight=c.weight;
- state.settings.height=+document.getElementById("mHeight").value||180;
- state.settings.sex=document.getElementById("mSex").value;
-
- save();
- alert("Monday check-in saved.");
- render();
-}
 
 /* =========================
-   BODY PAGE
+   WORKOUT PLAN
 ========================= */
 
-function input(id,label,value=""){
- return `
- <div class="field">
-  <label>${label}</label>
-  <input id="${id}" value="${value||""}" inputmode="decimal">
- </div>`;
+const PLAN={
+
+Mon:{
+  name:"Push",
+  sub:"Chest • Shoulders • Triceps",
+  ex:[
+    ["Incline Bench Press",2,"8–12"],
+    ["Pec Deck",2,"10–15"],
+    ["Shoulder Press Machine",2,"8–12"],
+    ["Cable/Dumbbell Lateral Raise",2,"10–15"],
+    ["Rope Pushdown",2,"8–12"],
+    ["Overhead Cable Triceps Extension",2,"10–15"]
+  ]
+},
+
+Tue:{
+  name:"Pull",
+  sub:"Back • Biceps",
+  ex:[
+    ["Lat Pulldown",2,"8–12"],
+    ["Incline Bench-Supported Barbell Row",2,"8–12"],
+    ["Seated Cable Row",2,"8–12"],
+    ["Cable Crossover Rear-Delt Fly",2,"10–15"],
+    ["Preacher Curl",2,"8–12"],
+    ["Rope Hammer Curl",2,"8–12"]
+  ]
+},
+
+Wed:{
+  name:"Legs + Abs",
+  sub:"Quads • Hamstrings • Calves • Abs",
+  ex:[
+    ["Leg Press",2,"8–12"],
+    ["Leg Curl",2,"8–12"],
+    ["Leg Extension",2,"10–15"],
+    ["Standing Calf Raise",2,"10–15"],
+    ["Cable Crunch",2,"10–15"]
+  ]
+},
+
+Thu:{
+  name:"Chest + Back",
+  sub:"Chest • Back",
+  ex:[
+    ["Incline Bench Press",3,"8–12"],
+    ["High-to-Low Cable Fly",3,"10–15"],
+    ["Flat Dumbbell Press",3,"8–12"],
+    ["Lat Pulldown",3,"8–12"],
+    ["Single-Arm Dumbbell Row",3,"8–12"],
+    ["Straight-Arm Cable Pulldown",3,"10–15"]
+  ]
+},
+
+Fri:{
+  name:"Shoulders + Arms + Forearms",
+  sub:"Shoulders • Biceps • Triceps • Forearms",
+  ex:[
+    ["Shoulder Press Machine",3,"8–12"],
+    ["Cable Lateral Raise",2,"10–15"],
+    ["Preacher Curl",3,"8–12"],
+    ["Incline Dumbbell Curl",2,"8–12"],
+    ["Rope Pushdown",3,"8–12"],
+    ["Overhead Cable Triceps Extension",2,"10–15"],
+    ["Wrist Curl",2,"12–15"],
+    ["Reverse Wrist Curl",2,"12–15"]
+  ]
+},
+
+Sat:{
+  name:"Legs + Abs",
+  sub:"Posterior Chain • Quads • Calves • Abs",
+  ex:[
+    ["Conventional Deadlift",2,"6–8"],
+    ["Leg Press",3,"8–12"],
+    ["Leg Curl",3,"8–12"],
+    ["Leg Extension",2,"10–15"],
+    ["Standing Calf Raise",3,"10–15"],
+    ["Hanging Knee Raise",2,"10–15"]
+  ]
+},
+
+Sun:{
+  name:"Recovery",
+  sub:"Rest day",
+  ex:[]
 }
 
-function body(){
- const old=thisMondayCheckin();
+};
 
- if(!isMonday()){
-  return `
-  <h1>Body</h1>
-  <div class="sub">Weekly Monday check-in</div>
-
-  <div class="notice warn">
-   Your official body check-in is every Monday.
-   <br><br>
-   Next check-in: <b>Monday</b>
-  </div>
-
-  ${bodyHistory()}
-  `;
- }
-
- return `
- <h1>Body Check-in</h1>
- <div class="sub">Weekly Monday measurement</div>
-
- <div class="notice good">
-  ${old?"You already have a check-in for this Monday. Saving again will update it.":"Today's Monday check-in is ready."}
- </div>
-
- <div class="card">
-  <h2>Basic</h2>
-
-  <div class="fieldgrid">
-   ${input("mWeight","Weight (kg)",old?.weight||state.weight)}
-   ${input("mHeight","Height (cm)",old?.height||state.settings.height||180)}
-
-   <div class="field">
-    <label>Sex</label>
-    <select id="mSex">
-     <option value="male" ${state.settings.sex==="male"?"selected":""}>Male</option>
-     <option value="female" ${state.settings.sex==="female"?"selected":""}>Female</option>
-    </select>
-   </div>
-
-   ${input("mNeck","Neck (cm)",old?.neck)}
-  </div>
- </div>
-
- <div class="card">
-  <h2>Measurements</h2>
-
-  <div class="fieldgrid">
-   ${input("mShoulders","Shoulders (cm)",old?.shoulders)}
-   ${input("mChest","Chest (cm)",old?.chest)}
-   ${input("mWaist","Waist (cm)",old?.waist)}
-   ${input("mHips","Hips (cm)",old?.hips)}
-   ${input("mLeftArm","Left arm (cm)",old?.leftArm)}
-   ${input("mRightArm","Right arm (cm)",old?.rightArm)}
-   ${input("mLeftForearm","Left forearm (cm)",old?.leftForearm)}
-   ${input("mRightForearm","Right forearm (cm)",old?.rightForearm)}
-   ${input("mLeftThigh","Left thigh (cm)",old?.leftThigh)}
-   ${input("mRightThigh","Right thigh (cm)",old?.rightThigh)}
-   ${input("mLeftCalf","Left calf (cm)",old?.leftCalf)}
-   ${input("mRightCalf","Right calf (cm)",old?.rightCalf)}
-  </div>
-
-  <div class="field">
-   <label>Notes</label>
-   <textarea id="mNotes">${old?.notes||""}</textarea>
-  </div>
-
-  <div class="actions">
-   <button class="btn" onclick="saveCheckin()">Save Monday Check-in</button>
-  </div>
- </div>
-
- <div class="card">
-  <h2>Automatic body-fat estimate</h2>
-  <div class="tiny">
-   Uses your height, neck and waist measurements with the US Navy formula.
-   It is an estimate, not a clinical measurement.
-  </div>
- </div>
-
- ${bodyHistory()}
- `;
-}
-
-function bodyHistory(){
- const arr=state.checkins
-  .slice()
-  .sort((a,b)=>b.date.localeCompare(a.date));
-
- return `
- <div class="section">Check-in history</div>
-
- <div class="card">
- ${
- arr.length
- ?
- arr.map(c=>`
-  <div class="listrow">
-   <span>
-    <b>${c.date}</b>
-    <div class="tiny">
-     Waist ${c.waist||"—"} cm
-    </div>
-   </span>
-   <span>
-    ${c.weight||"—"} kg
-    <br>
-    <span class="pill">${c.bf?c.bf.toFixed(1)+"% BF":"—"}</span>
-   </span>
-  </div>
- `).join("")
- :
- `<div class="empty">No Monday check-ins yet.</div>`
- }
- </div>
-
- <div class="actions">
-  <button class="btn secondary" onclick="go('progress')">
-   View Progress
-  </button>
- </div>
- `;
-}
 
 /* =========================
-   CHARTS
+   NAVIGATION
 ========================= */
 
-function chart(data,key,unit){
- if(data.length<2){
-  return `<div class="empty">Add at least 2 Monday check-ins to see this graph.</div>`;
- }
-
- const vals=data
-  .map(x=>+x[key])
-  .filter(x=>Number.isFinite(x)&&x>0);
-
- if(!vals.length) return `<div class="empty">No data yet.</div>`;
-
- const min=Math.min(...vals);
- const max=Math.max(...vals);
- const range=max-min||1;
-
- const W=640,H=190;
- const pad=28;
-
- const pts=data
-  .map((x,i)=>{
-   const v=+x[key];
-   if(!v)return null;
-
-   const px=pad+(i/(data.length-1))*(W-pad*2);
-   const py=H-pad-((v-min)/range)*(H-pad*2);
-
-   return [px,py,v,x.date];
-  })
-  .filter(Boolean);
-
- const path=pts.map((p,i)=>
-  `${i?"L":"M"} ${p[0]} ${p[1]}`
- ).join(" ");
-
- return `
- <svg class="chart" viewBox="0 0 ${W} ${H}">
-  <line x1="${pad}" y1="${H-pad}" x2="${W-pad}" y2="${H-pad}"
-   stroke="#292d34"/>
-  <path d="${path}" class="chartline"/>
-  ${pts.map(p=>`
-   <circle cx="${p[0]}" cy="${p[1]}" r="4" class="chartdot"/>
-  `).join("")}
-  <text x="${pad}" y="14" class="chartlabel">
-   ${max.toFixed(1)}${unit}
-  </text>
-  <text x="${pad}" y="${H-5}" class="chartlabel">
-   ${min.toFixed(1)}${unit}
-  </text>
-  <text x="${W-pad-70}" y="${H-5}" class="chartlabel">
-   ${pts[pts.length-1][3]}
-  </text>
- </svg>
- `;
+function go(p){
+  state.page=p;
+  save();
+  render();
 }
 
-function progress(){
- const data=state.checkins
-  .slice()
-  .sort((a,b)=>a.date.localeCompare(b.date));
-
- const metrics=[
-  ["weight","Weight"," kg"],
-  ["bf","Body Fat","%"],
-  ["waist","Waist"," cm"],
-  ["chest","Chest"," cm"],
-  ["shoulders","Shoulders"," cm"],
-  ["hips","Hips"," cm"],
-  ["leftArm","Left Arm"," cm"],
-  ["rightArm","Right Arm"," cm"],
-  ["leftForearm","Left Forearm"," cm"],
-  ["rightForearm","Right Forearm"," cm"],
-  ["leftThigh","Left Thigh"," cm"],
-  ["rightThigh","Right Thigh"," cm"],
-  ["leftCalf","Left Calf"," cm"],
-  ["rightCalf","Right Calf"," cm"]
- ];
-
- return `
- <h1>Progress</h1>
- <div class="sub">Your weekly Monday trends</div>
-
- <div class="card">
-  <div class="row">
-   <b>Weight goal</b>
-   <span>${state.goalWeight||75} kg</span>
-  </div>
-  ${
-   data.length
-   ?
-   `<div class="tiny" style="margin-top:7px">
-    Current: ${data[data.length-1].weight||"—"} kg
-    • Goal: ${state.goalWeight||75} kg
-   </div>`
-   :
-   ""
-  }
- </div>
-
- ${metrics.map(m=>`
-  <div class="card">
-   <div class="row">
-    <b>${m[1]}</b>
-    <span class="tiny">
-     ${
-      data.length && data[data.length-1][m[0]]
-      ? data[data.length-1][m[0]]+m[2]
-      : "—"
-     }
-    </span>
-   </div>
-   ${chart(data,m[0],m[2])}
-  </div>
- `).join("")}
- `;
-}
-
-/* =========================
-   STEPS
-========================= */
-
-function steps(){
- const todaySteps=state.steps[today()]||0;
- const goal=state.settings.stepGoal||10000;
-
- const dates=Object.keys(state.steps).sort();
- const last7=dates.slice(-7);
-
- const avg=last7.length
-  ? Math.round(
-   last7.reduce((sum,d)=>sum+(+state.steps[d]||0),0)/last7.length
-  )
-  : 0;
-
- return `
- <h1>Steps</h1>
- <div class="sub">Daily activity tracking</div>
-
- <div class="statgrid">
-  <div class="stat">
-   <b>${Number(todaySteps).toLocaleString()}</b>
-   <small>Today</small>
-  </div>
-  <div class="stat">
-   <b>${Number(goal).toLocaleString()}</b>
-   <small>Goal</small>
-  </div>
-  <div class="stat">
-   <b>${avg.toLocaleString()}</b>
-   <small>7-day avg</small>
-  </div>
- </div>
-
- <div class="card">
-  <h2>Today's steps</h2>
-
-  ${input("stepInput","Steps",todaySteps)}
-  ${input("stepGoal","Daily goal",goal)}
-
-  <div class="progress">
-   <i style="width:${Math.min(100,todaySteps/goal*100)}%"></i>
-  </div>
-
-  <div class="tiny">
-   ${Math.round(todaySteps/goal*100)}% of today's goal
-  </div>
-
-  <div class="actions">
-   <button class="btn" onclick="saveSteps()">Save Steps</button>
-  </div>
- </div>
-
- <div class="card">
-  <h2>Recent days</h2>
-
-  ${
-   dates.length
-   ?
-   dates.slice(-14).reverse().map(d=>`
-    <div class="listrow">
-     <span>${d}</span>
-     <span>
-      ${Number(state.steps[d]).toLocaleString()}
-      <span class="pill">
-       ${Math.round(state.steps[d]/goal*100)}%
-      </span>
-     </span>
-    </div>
-   `).join("")
-   :
-   `<div class="empty">No step entries yet.</div>`
-  }
- </div>
- `;
-}
-
-function saveSteps(){
- const n=Math.max(
-  0,
-  Math.floor(+document.getElementById("stepInput").value||0)
- );
-
- const goal=Math.max(
-  1,
-  Math.floor(+document.getElementById("stepGoal").value||10000)
- );
-
- state.steps[today()]=n;
- state.settings.stepGoal=goal;
-
- save();
- render();
-}
-
-/* =========================
-   DIET
-========================= */
-
-function diet(){
- const d=state.diet[today()]||{
-  meals:[],
-  cal:0,
-  p:0,
-  c:0,
-  f:0
- };
-
- const g=state.settings;
-
- return `
- <h1>Diet</h1>
- <div class="sub">Daily nutrition tracker</div>
-
- <div class="statgrid">
-  <div class="stat">
-   <b>${d.cal||0}</b>
-   <small>kcal / ${g.calorieGoal}</small>
-  </div>
-
-  <div class="stat">
-   <b>${d.p||0}g</b>
-   <small>protein / ${g.proteinGoal}g</small>
-  </div>
-
-  <div class="stat">
-   <b>${d.c||0}g</b>
-   <small>carbs / ${g.carbGoal}g</small>
-  </div>
- </div>
-
- <div class="card">
-  <div class="row">
-   <b>Calories</b>
-   <span>${Math.max(0,g.calorieGoal-d.cal)} remaining</span>
-  </div>
-
-  <div class="progress">
-   <i style="width:${Math.min(100,d.cal/g.calorieGoal*100)}%"></i>
-  </div>
-
-  <div class="tiny">
-   Protein ${d.p||0}/${g.proteinGoal}g
-   • Carbs ${d.c||0}/${g.carbGoal}g
-   • Fat ${d.f||0}/${g.fatGoal}g
-  </div>
- </div>
-
- <div class="card">
-  <h2>Add Food</h2>
-
-  <div class="fieldgrid">
-   ${input("foodName","Food")}
-   ${input("foodCal","Calories")}
-   ${input("foodP","Protein (g)")}
-   ${input("foodC","Carbs (g)")}
-   ${input("foodF","Fat (g)")}
-  </div>
-
-  <div class="field">
-   <label>Meal</label>
-   <select id="foodMeal">
-    <option>Breakfast</option>
-    <option>Lunch</option>
-    <option>Pre-workout</option>
-    <option>Post-workout</option>
-    <option>Dinner</option>
-    <option>Snack</option>
-   </select>
-  </div>
-
-  <div class="actions">
-   <button class="btn" onclick="addFood()">Add Food</button>
-  </div>
- </div>
-
- <div class="card">
-  <h2>Today's food</h2>
-
-  ${
-   d.meals.length
-   ?
-   d.meals.map((m,i)=>`
-    <div class="meal">
-     <div class="row">
-      <span>
-       <b>${m.name}</b>
-       <div class="tiny">${m.meal}</div>
-      </span>
-      <button class="iconbtn secondary" onclick="removeFood(${i})">×</button>
-     </div>
-
-     <div class="tiny" style="margin-top:6px">
-      ${m.cal} kcal
-      • P ${m.p}g
-      • C ${m.c}g
-      • F ${m.f}g
-     </div>
-    </div>
-   `).join("")
-   :
-   `<div class="empty">Nothing logged today.</div>`
-  }
- </div>
-
- <div class="card">
-  <div class="row">
-   <b>Diet targets</b>
-   <button class="btn secondary" onclick="editDietGoals()">Edit</button>
-  </div>
-
-  <div class="tiny" style="margin-top:7px">
-   ${g.calorieGoal} kcal
-   • ${g.proteinGoal}g protein
-   • ${g.carbGoal}g carbs
-   • ${g.fatGoal}g fat
-  </div>
- </div>
- `;
-}
-
-function addFood(){
- const name=document.getElementById("foodName").value.trim();
-
- if(!name){
-  alert("Enter a food name.");
-  return;
- }
-
- const food={
-  name,
-  meal:document.getElementById("foodMeal").value,
-  cal:+document.getElementById("foodCal").value||0,
-  p:+document.getElementById("foodP").value||0,
-  c:+document.getElementById("foodC").value||0,
-  f:+document.getElementById("foodF").value||0
- };
-
- const d=state.diet[today()]||{
-  meals:[],cal:0,p:0,c:0,f:0
- };
-
- d.meals.push(food);
- d.cal+=food.cal;
- d.p+=food.p;
- d.c+=food.c;
- d.f+=food.f;
-
- state.diet[today()]=d;
-
- save();
- render();
-}
-
-function removeFood(i){
- const d=state.diet[today()];
- if(!d)return;
-
- const m=d.meals[i];
-
- d.cal-=m.cal;
- d.p-=m.p;
- d.c-=m.c;
- d.f-=m.f;
-
- d.meals.splice(i,1);
-
- save();
- render();
-}
-
-function editDietGoals(){
- const c=+prompt(
-  "Daily calories",
-  state.settings.calorieGoal
- )||state.settings.calorieGoal;
-
- const p=+prompt(
-  "Protein grams",
-  state.settings.proteinGoal
- )||state.settings.proteinGoal;
-
- const carbs=+prompt(
-  "Carbs grams",
-  state.settings.carbGoal
- )||state.settings.carbGoal;
-
- const f=+prompt(
-  "Fat grams",
-  state.settings.fatGoal
- )||state.settings.fatGoal;
-
- state.settings.calorieGoal=c;
- state.settings.proteinGoal=p;
- state.settings.carbGoal=carbs;
- state.settings.fatGoal=f;
-
- save();
- render();
-}
-
-/* =========================
-   WORKOUT
-========================= */
-
-function workout(){
- const day=state.activeDay||dayName();
- const d=WORKOUTS[day];
-
- if(day==="Sun"){
-  return `
-  <h1>Recovery</h1>
-  <div class="sub">Sunday</div>
-  <div class="card empty">
-   Recovery is part of the program.
-  </div>
-  `;
- }
-
- const date=state.activeDate||today();
- const log=state.logs[date]||{ex:{}};
-
- const completed=d.ex.filter(
-  e=>log.ex[e[0]]?.done
- ).length;
-
- return `
- <div class="row">
-  <div>
-   <h1>${d.name}</h1>
-   <div class="sub">${day} • ${d.sub}</div>
-  </div>
-  <button class="btn secondary" onclick="go('home')">×</button>
- </div>
-
- <div class="card">
-  <div class="row">
-   <span class="tag">Workout progress</span>
-   <span class="tiny">${completed}/${d.ex.length}</span>
-  </div>
-
-  <div class="progress">
-   <i style="width:${completed/d.ex.length*100}%"></i>
-  </div>
- </div>
-
- <div class="card">
-  ${d.ex.map((e,i)=>exercise(e,i,log)).join("")}
- </div>
-
- <div class="actions">
-  <button class="btn" onclick="finishWorkout()">
-   Finish Workout
-  </button>
- </div>
-
- <div class="tiny" style="margin-top:12px">
-  Warm-ups are separate. Compounds: 2–3 min rest.
-  Isolations: 60–90 sec. Work around 1–2 RIR initially
-  and 0–1 RIR on final hard sets.
- </div>
- `;
-}
-
-function previousExercise(name){
- const arr=[];
-
- for(const [date,l] of Object.entries(state.logs)){
-  if(l.ex?.[name]){
-   arr.push({
-    date,
-    ...l.ex[name]
-   });
-  }
- }
-
- arr.sort((a,b)=>b.date.localeCompare(a.date));
-
- return arr[0];
-}
-
-function exercise(e,index,log){
- const[name,focus,range,sets]=e;
-
- const old=previousExercise(name);
- const current=log.ex[name]||{s:[]};
-
- let html="";
-
- for(let i=0;i<sets;i++){
-  const s=current.s[i]||{};
-
-  html+=`
-   <div class="setgrid">
-    <span>Set ${i+1}</span>
-
-    <input
-     inputmode="decimal"
-     placeholder="kg"
-     value="${s.w||""}"
-     onchange="editSet('${esc(name)}',${i},'w',this.value)"
-    >
-
-    <input
-     inputmode="numeric"
-     placeholder="reps"
-     value="${s.r||""}"
-     onchange="editSet('${esc(name)}',${i},'r',this.value)"
-    >
-   </div>
-  `;
- }
-
- let previous="No previous log";
-
- if(old){
-  previous=old.s.map(s=>
-   s.w&&s.r
-   ? `${s.w}kg × ${s.r}`
-   : "—"
-  ).join(" / ");
- }
-
- return `
- <div class="exercise">
-
-  <div class="row">
-   <div>
-    <div class="exname">${name}</div>
-    <div class="focus">
-     ${focus} • ${range} • ${sets} working sets
-    </div>
-   </div>
-
-   <input
-    type="checkbox"
-    ${current.done?"checked":""}
-    onchange="markExercise('${esc(name)}',this.checked)"
-   >
-  </div>
-
-  ${html}
-
-  <div class="tiny" style="margin-top:9px">
-   Previous: <b>${previous}</b>
-  </div>
-
- </div>
- `;
-}
-
-function ensureLog(){
- const date=state.activeDate||today();
-
- if(!state.logs[date]){
-  state.logs[date]={ex:{}};
- }
-
- return state.logs[date];
-}
-
-function editSet(name,index,key,value){
- const l=ensureLog();
-
- l.ex[name]=l.ex[name]||{s:[]};
- l.ex[name].s[index]=l.ex[name].s[index]||{};
-
- l.ex[name].s[index][key]=value;
-
- save();
-}
-
-function markExercise(name,value){
- const l=ensureLog();
-
- l.ex[name]=l.ex[name]||{s:[]};
- l.ex[name].done=value;
-
- save();
- render();
-}
-
-function finishWorkout(){
- const l=ensureLog();
-
- l.finishedAt=new Date().toISOString();
-
- save();
-
- alert("Workout saved. Nice work.");
- go("home");
-}
-
-function startWorkout(day){
- state.activeDay=day;
- state.activeDate=dateForDay(day);
- state.page="workout";
-
- save();
- render();
-}
-
-function dateForDay(day){
- const map={
-  Sun:0,
-  Mon:1,
-  Tue:2,
-  Wed:3,
-  Thu:4,
-  Fri:5,
-  Sat:6
- };
-
- const now=new Date();
- let diff=map[day]-now.getDay();
-
- if(diff>0)diff-=7;
-
- const d=new Date(now);
- d.setDate(now.getDate()+diff);
-
- return d.toISOString().slice(0,10);
-}
 
 /* =========================
    HOME
 ========================= */
 
 function home(){
- const day=dayName();
- const workout=WORKOUTS[day];
 
- const todayLog=state.logs[today()]||{ex:{}};
+  const d=dayKey();
 
- const completed=workout.ex.filter(
-  e=>todayLog.ex[e[0]]?.done
- ).length;
+  const p=PLAN[d];
 
- const pct=workout.ex.length
-  ? Math.round(completed/workout.ex.length*100)
-  : 0;
+  const log=state.logs[today()]||{};
 
- const latest=state.checkins
-  .slice()
-  .sort((a,b)=>b.date.localeCompare(a.date))[0];
+  const done=p.ex.filter(
+    (e,i)=>log.ex?.[i]?.done
+  ).length;
 
- const weight=latest?.weight||state.weight||"—";
- const bf=latest?.bf?latest.bf.toFixed(1)+"%":"—";
- const steps=state.steps[today()]||0;
+  const c=state.checkins
+    .slice()
+    .sort((a,b)=>b.date.localeCompare(a.date))[0];
 
- return `
- <h1>${day==="Sun"?"Recovery":"Today"}</h1>
+  const steps=state.steps[today()]||0;
 
- <div class="sub">
-  ${new Date().toLocaleDateString(undefined,{
-   weekday:"long",
-   month:"short",
-   day:"numeric"
-  })}
- </div>
+  return `
 
- <div class="card">
-  <div class="tag">${day}</div>
-  <h2 style="margin-top:5px">${workout.name}</h2>
-  <div class="sub">${workout.sub}</div>
+  <h1>${d==="Sun"?"Recovery":"Today"}</h1>
 
-  ${
-   workout.ex.length
-   ?
-   `
-   <div class="progress">
-    <i style="width:${pct}%"></i>
-   </div>
-
-   <div class="tiny">
-    ${completed}/${workout.ex.length} exercises complete
-   </div>
-
-   <div class="actions">
-    <button class="btn" onclick="startWorkout('${day}')">
-     ${completed?"Continue":"Start Workout"}
-    </button>
-   </div>
-   `
-   :
-   `<div class="notice" style="margin-top:12px">
-    Recovery day. Get ready for Monday.
-   </div>`
-  }
- </div>
-
- <div class="statgrid">
-  <div class="stat">
-   <b>${weight}</b>
-   <small>Weight kg</small>
+  <div class="sub">
+    ${fmt(today())}
   </div>
 
-  <div class="stat">
-   <b>${bf}</b>
-   <small>Body fat</small>
+  <div class="card">
+
+    <div class="row">
+      <span class="tag">${d}</span>
+      <span class="pill">${p.name}</span>
+    </div>
+
+    <div style="
+      font-size:20px;
+      font-weight:850;
+      margin-top:10px">
+      ${p.sub}
+    </div>
+
+    ${
+      p.ex.length
+      ?
+      `
+      <div class="progress">
+        <i style="
+          width:${done/p.ex.length*100}%">
+        </i>
+      </div>
+
+      <div class="tiny" style="margin-top:6px">
+        ${done}/${p.ex.length} exercises complete
+      </div>
+      `
+      :
+      `
+      <div class="notice">
+        Recovery day. No workout scheduled.
+      </div>
+      `
+    }
+
+    <div class="actions">
+
+      <button
+        class="btn"
+        onclick="go('workout')">
+
+        ${
+          p.ex.length
+          ?"Open today's workout"
+          :"View workout week"
+        }
+
+      </button>
+
+    </div>
+
   </div>
 
-  <div class="stat">
-   <b>${Number(steps).toLocaleString()}</b>
-   <small>Steps</small>
-  </div>
- </div>
 
- <div class="card">
-  <div class="row">
-   <b>Monday Check-in</b>
-   <span class="tiny">
-    ${isMonday()?"Due today":"Weekly"}
-   </span>
-  </div>
+  <div class="statgrid">
 
-  <div class="tiny" style="margin-top:7px">
-   Weight, measurements and automatic body-fat estimate.
-  </div>
+    <div class="stat">
+      <b>${c?.weight??"—"}</b>
+      <small>Latest weight kg</small>
+    </div>
 
-  <div class="actions">
-   <button class="btn secondary" onclick="go('body')">
-    ${isMonday()?"Do Check-in":"View Body"}
-   </button>
-  </div>
- </div>
+    <div class="stat">
+      <b>
+        ${
+          c?.bf
+          ?c.bf.toFixed(1)+"%"
+          :"—"
+        }
+      </b>
+      <small>Body fat est.</small>
+    </div>
 
- <div class="card">
-  <div class="row">
-   <b>Goal</b>
-   <span>${state.goalWeight||75} kg</span>
+    <div class="stat">
+      <b>${Number(steps).toLocaleString()}</b>
+      <small>Steps today</small>
+    </div>
+
   </div>
 
-  <div class="tiny" style="margin-top:7px">
-   Current ${weight} kg
+
+  <div class="card">
+
+    <div class="row">
+      <b>Body check-in</b>
+      <span class="pill">Monday only</span>
+    </div>
+
+    <div class="tiny" style="margin-top:7px">
+
+      ${
+        isMonday()
+        ?"Your weekly check-in is open today."
+        :"Next check-in: "+nextMonday()
+      }
+
+    </div>
+
+    <div class="actions">
+
+      <button
+        class="btn secondary"
+        onclick="go('body')">
+
+        Open Body
+
+      </button>
+
+    </div>
+
   </div>
- </div>
- `;
+
+  `;
+
 }
+
 
 /* =========================
-   HISTORY
+   WORKOUT PAGE
 ========================= */
 
-function historyPage(){
- const rows=Object.entries(state.logs)
-  .sort((a,b)=>b[0].localeCompare(a[0]));
+function workout(){
 
- return `
- <h1>History</h1>
- <div class="sub">Your training and body history</div>
+  let d=state.activeDay||dayKey();
 
- <div class="section">Workouts</div>
+  let date=state.activeDate||today();
 
- ${
-  rows.length
-  ?
-  rows.map(([date,l])=>`
-   <div class="card">
-    <div class="row">
-     <b>${date}</b>
-     <span class="tag">
-      ${Object.values(l.ex||{}).filter(x=>x.done).length}
-      exercises
-     </span>
+  let p=PLAN[d];
+
+  return `
+
+  <h1>${p.name}</h1>
+
+  <div class="sub">
+    ${d} • ${fmt(date)} • ${p.sub}
+  </div>
+
+
+  <div class="daybar">
+
+    ${
+      ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+      .map(x=>`
+
+        <button
+          class="${d===x?"active":""}"
+          onclick="selectDay('${x}')">
+
+          ${x}
+
+        </button>
+
+      `)
+      .join("")
+    }
+
+  </div>
+
+
+  ${
+    p.ex.length
+    ?
+    `
+
+    <div class="card">
+
+      <div class="row">
+
+        <b>
+          ${
+            d===dayKey() && date===today()
+            ?"Today's workout"
+            :"Selected workout"
+          }
+        </b>
+
+        <span class="pill">
+          ${date}
+        </span>
+
+      </div>
+
+
+      ${
+        p.ex
+        .map((e,i)=>exercise(e,i,date,d))
+        .join("")
+      }
+
     </div>
 
-    <div class="tiny" style="margin-top:8px">
-     ${
-      Object.entries(l.ex||{})
-      .filter(([n,x])=>x.done)
-      .map(([n,x])=>
-       `${n}: ${
-        x.s.map(s=>
-         s.w&&s.r
-         ? s.w+"kg × "+s.r
-         : "—"
-        ).join(", ")
-       }`
-      )
-      .join("<br>")
-     }
+    `
+    :
+    `
+
+    <div class="card empty">
+
+      Sunday is your recovery day.
+
     </div>
-   </div>
-  `).join("")
-  :
-  `<div class="card empty">No workouts logged yet.</div>`
- }
 
- <div class="section">Monday Check-ins</div>
+    `
+  }
 
- <div class="card">
- ${
-  state.checkins.length
-  ?
-  state.checkins
-   .slice()
-   .sort((a,b)=>b.date.localeCompare(a.date))
-   .map(c=>`
-    <div class="listrow">
-     <span>${c.date}</span>
-     <span>
-      ${c.weight||"—"} kg
-      • ${c.bf?c.bf.toFixed(1)+"%":"—"}
-     </span>
-    </div>
-   `).join("")
-  :
-  `<div class="empty">No check-ins yet.</div>`
- }
- </div>
+  `;
 
- <div class="actions">
-  <button class="btn secondary" onclick="backup()">
-   Export Backup
-  </button>
-
-  <button class="btn secondary" onclick="restore()">
-   Import Backup
-  </button>
- </div>
- `;
 }
+
+
+function selectDay(d){
+
+  state.activeDay=d;
+
+  state.activeDate=weekDate(d);
+
+  save();
+
+  render();
+}
+
+
+function weekDate(d){
+
+  let now=new Date();
+
+  let map={
+    Sun:0,
+    Mon:1,
+    Tue:2,
+    Wed:3,
+    Thu:4,
+    Fri:5,
+    Sat:6
+  };
+
+  let diff=map[d]-now.getDay();
+
+  let x=new Date(now);
+
+  x.setDate(
+    now.getDate()+diff
+  );
+
+  return x.toISOString().slice(0,10);
+}
+
+
+function exercise(e,i,date,d){
+
+  let log=
+    state.logs[date]?.ex?.[i]||{};
+
+  let prev=previous(e[0],date);
+
+  let sets=[];
+
+  for(
+    let s=0;
+    s<e[1];
+    s++
+  ){
+
+    let v=log.sets?.[s]||{};
+
+    sets.push(`
+
+      <div class="setrow">
+
+        <span>${s+1}</span>
+
+        <input
+          inputmode="decimal"
+          placeholder="kg"
+          value="${v.w||""}"
+          onchange="
+            saveSet(
+              '${date}',
+              '${d}',
+              ${i},
+              ${s},
+              'w',
+              this.value
+            )
+          "
+        >
+
+        <input
+          inputmode="numeric"
+          placeholder="reps"
+          value="${v.r||""}"
+          onchange="
+            saveSet(
+              '${date}',
+              '${d}',
+              ${i},
+              ${s},
+              'r',
+              this.value
+            )
+          "
+        >
+
+        <input
+          class="check"
+          type="checkbox"
+          ${v.done?"checked":""}
+          onchange="
+            saveSet(
+              '${date}',
+              '${d}',
+              ${i},
+              ${s},
+              'done',
+              this.checked
+            )
+          "
+        >
+
+      </div>
+
+    `);
+
+  }
+
+
+  return `
+
+  <div class="exercise">
+
+    <div class="row">
+
+      <div class="exercise-title">
+        ${i+1}. ${e[0]}
+      </div>
+
+      <span class="pill">
+        ${e[1]} × ${e[2]}
+      </span>
+
+    </div>
+
+
+    ${
+      prev
+      ?
+      `
+      <div
+        class="tiny"
+        style="margin-top:5px">
+
+        Previous: ${prev}
+
+      </div>
+      `
+      :""
+    }
+
+
+    <div class="sets">
+
+      <div class="setrow">
+
+        <span></span>
+        <span>Weight</span>
+        <span>Reps</span>
+        <span>✓</span>
+
+      </div>
+
+      ${sets.join("")}
+
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+
+function previous(name,date){
+
+  let arr=Object
+    .keys(state.logs)
+    .filter(x=>x<date)
+    .sort()
+    .reverse();
+
+  for(let d of arr){
+
+    let p=PLAN[dayKey(d)];
+
+    let idx=p?.ex.findIndex(
+      x=>x[0]===name
+    );
+
+    if(idx>=0){
+
+      let s=
+        state.logs[d]
+        ?.ex
+        ?.[idx]
+        ?.sets||[];
+
+      let done=
+        s.filter(x=>x.w||x.r);
+
+      if(done.length){
+
+        return done
+          .map(x=>
+            (x.w?x.w+"kg":"—")+
+            (x.r?" × "+x.r:"")
+          )
+          .join(", ");
+
+      }
+
+    }
+
+  }
+
+  return "";
+}
+
+
+function saveSet(
+  date,
+  d,
+  i,
+  s,
+  key,
+  val
+){
+
+  state.logs[date]=
+    state.logs[date]||
+    {ex:{}};
+
+  state.logs[date].ex[i]=
+    state.logs[date].ex[i]||
+    {sets:[]};
+
+  state.logs[date]
+    .ex[i]
+    .sets=
+    state.logs[date]
+      .ex[i]
+      .sets||[];
+
+  state.logs[date]
+    .ex[i]
+    .sets[s]=
+    state.logs[date]
+      .ex[i]
+      .sets[s]||{};
+
+  state.logs[date]
+    .ex[i]
+    .sets[s][key]=val;
+
+  if(key==="done"){
+
+    state.logs[date]
+      .ex[i]
+      .done=
+      state.logs[date]
+        .ex[i]
+        .sets
+        .every(x=>x?.done);
+
+  }
+
+  save();
+
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+function body(){
+
+  let c=
+    state.checkins.find(
+      x=>x.date===mondayDate()
+    );
+
+  let last=
+    state.checkins
+      .slice()
+      .sort(
+        (a,b)=>b.date.localeCompare(a.date)
+      )[0];
+
+
+  return `
+
+  <h1>Body</h1>
+
+  <div class="sub">
+    Weekly measurements • Monday only
+  </div>
+
+
+  ${
+    !isMonday()
+    ?
+    `
+    <div class="notice">
+
+      🔒 Check-in locked.
+
+      <br>
+
+      New weight and measurements
+      can only be entered on Monday.
+
+      <br><br>
+
+      <b style="color:var(--text)">
+        Next check-in: ${nextMonday()}
+      </b>
+
+    </div>
+    `
+    :
+    `
+    <div class="notice good">
+
+      ✓ Today's Monday check-in is open.
+
+    </div>
+    `
+  }
+
+
+  <div class="card">
+
+    <div class="row">
+
+      <b>
+        ${
+          isMonday()
+          ?"Weekly check-in"
+          :"Latest check-in"
+        }
+      </b>
+
+      <span class="pill">
+        ${c?.date||last?.date||"—"}
+      </span>
+
+    </div>
+
+
+    <div class="section">
+      Core measurements
+    </div>
+
+
+    <div class="fieldgrid">
+
+      ${field(
+        "weight",
+        "Weight (kg)",
+        c?.weight??last?.weight??"",
+        !isMonday()
+      )}
+
+      ${field(
+        "height",
+        "Height (cm)",
+        c?.height??last?.height??180,
+        !isMonday()
+      )}
+
+      ${field(
+        "neck",
+        "Neck (cm)",
+        c?.neck??last?.neck??"",
+        !isMonday()
+      )}
+
+      ${field(
+        "waist",
+        "Waist (cm)",
+        c?.waist??last?.waist??"",
+        !isMonday()
+      )}
+
+    </div>
+
+
+    <div class="section">
+      Body-fat estimate
+    </div>
+
+
+    <div class="notice">
+
+      Uses the U.S. Navy circumference
+      method from height, neck and waist.
+
+      <br>
+
+      It is an estimate, not a medical measurement.
+
+    </div>
+
+
+    <div
+      id="bfPreview"
+      class="stat"
+      style="margin-top:10px">
+
+      <b>
+        ${
+          c?.bf
+          ?c.bf.toFixed(1)+"%"
+          :
+          last?.bf
+          ?last.bf.toFixed(1)+"%"
+          :"—"
+        }
+      </b>
+
+      <small>
+        Estimated body fat
+      </small>
+
+    </div>
+
+
+    ${
+      isMonday()
+      ?
+      `
+      <div class="actions">
+
+        <button
+          class="btn"
+          onclick="saveBody()">
+
+          Save Monday check-in
+
+        </button>
+
+      </div>
+      `
+      :""
+    }
+
+  </div>
+
+
+  <div class="card">
+
+    <b>
+      Latest recorded data
+    </b>
+
+    ${
+      last
+      ?
+      `
+
+      <div class="listrow">
+        <span>Weight</span>
+        <span>${last.weight} kg</span>
+      </div>
+
+      <div class="listrow">
+        <span>Body fat</span>
+        <span>${last.bf?.toFixed(1)||"—"}%</span>
+      </div>
+
+      <div class="listrow">
+        <span>Waist</span>
+        <span>${last.waist||"—"} cm</span>
+      </div>
+
+      `
+      :
+      `
+      <div class="empty">
+        No body check-ins yet.
+      </div>
+      `
+    }
+
+  </div>
+
+  `;
+
+}
+
+
+function field(
+  id,
+  label,
+  val,
+  disabled
+){
+
+  return `
+
+  <div class="field">
+
+    <label>${label}</label>
+
+    <input
+      id="${id}"
+      inputmode="decimal"
+      value="${val}"
+      ${disabled?"disabled":""}
+      oninput="previewBF()"
+    >
+
+  </div>
+
+  `;
+
+}
+
+
+function calcBF(
+  waist,
+  neck,
+  height
+){
+
+  waist=+waist;
+  neck=+neck;
+  height=+height;
+
+  if(
+    !(waist>neck&&
+      neck>0&&
+      height>0)
+  ){
+    return null;
+  }
+
+  let wi=waist/2.54;
+  let ni=neck/2.54;
+  let hi=height/2.54;
+
+  return Math.max(
+    2,
+    Math.min(
+      60,
+      86.010*Math.log10(wi-ni)
+      -
+      70.041*Math.log10(hi)
+      +
+      36.76
+    )
+  );
+
+}
+
+
+function previewBF(){
+
+  let el=
+    document.getElementById("bfPreview");
+
+  if(!el)return;
+
+  let b=calcBF(
+    document.getElementById("waist")?.value,
+    document.getElementById("neck")?.value,
+    document.getElementById("height")?.value
+  );
+
+  el.innerHTML=`
+
+    <b>
+      ${b?b.toFixed(1)+"%":"—"}
+    </b>
+
+    <small>
+      Estimated body fat
+    </small>
+
+  `;
+
+}
+
+
+function saveBody(){
+
+  let w=
+    +document.getElementById("weight").value;
+
+  let h=
+    +document.getElementById("height").value;
+
+  let n=
+    +document.getElementById("neck").value;
+
+  let wa=
+    +document.getElementById("waist").value;
+
+  if(!w||!h||!n||!wa){
+
+    alert(
+      "Fill in weight, height, neck and waist."
+    );
+
+    return;
+  }
+
+  let bf=calcBF(
+    wa,
+    n,
+    h
+  );
+
+  let item={
+    date:mondayDate(),
+    weight:w,
+    height:h,
+    neck:n,
+    waist:wa,
+    bf:bf
+  };
+
+  state.checkins=
+    state.checkins.filter(
+      x=>x.date!==item.date
+    );
+
+  state.checkins.push(item);
+
+  save();
+
+  render();
+
+}
+<script>
+
+/* =========================
+   STEPS
+========================= */
+
+function steps(){
+
+  let n=
+    Number(
+      state.steps[today()]||0
+    );
+
+  let goal=
+    Number(
+      state.settings.stepGoal||10000
+    );
+
+
+  return `
+
+  <h1>Steps</h1>
+
+  <div class="sub">
+    Daily activity tracking
+  </div>
+
+
+  <div class="statgrid">
+
+    <div class="stat">
+      <b>${n.toLocaleString()}</b>
+      <small>Today</small>
+    </div>
+
+    <div class="stat">
+      <b>${goal.toLocaleString()}</b>
+      <small>Daily goal</small>
+    </div>
+
+    <div class="stat">
+      <b>
+        ${Math.min(
+          100,
+          Math.round(n/goal*100)
+        )}%
+      </b>
+      <small>Goal reached</small>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <b>Today's steps</b>
+
+
+    <div
+      class="field"
+      style="margin-top:10px">
+
+      <label>Steps</label>
+
+      <input
+        id="stepsInput"
+        inputmode="numeric"
+        value="${n}"
+      >
+
+    </div>
+
+
+    <div
+      class="field"
+      style="margin-top:10px">
+
+      <label>Daily goal</label>
+
+      <input
+        id="stepGoal"
+        inputmode="numeric"
+        value="${goal}"
+      >
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        class="btn"
+        onclick="saveSteps()">
+
+        Save steps
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <b>Recent days</b>
+
+    ${
+      Object
+      .keys(state.steps)
+      .sort()
+      .reverse()
+      .slice(0,14)
+      .map(d=>`
+
+        <div class="listrow">
+
+          <span>${fmt(d)}</span>
+
+          <span>
+            ${Number(
+              state.steps[d]
+            ).toLocaleString()}
+          </span>
+
+        </div>
+
+      `)
+      .join("")
+      ||
+      `
+      <div class="empty">
+        No step history yet.
+      </div>
+      `
+    }
+
+  </div>
+
+  `;
+
+}
+
+
+function saveSteps(){
+
+  state.steps[today()]=
+    Math.max(
+      0,
+      Math.floor(
+        +document
+          .getElementById("stepsInput")
+          .value||0
+      )
+    );
+
+
+  state.settings.stepGoal=
+    Math.max(
+      1,
+      Math.floor(
+        +document
+          .getElementById("stepGoal")
+          .value||10000
+      )
+    );
+
+
+  save();
+
+  render();
+
+}
+
+
+/* =========================
+   DIET
+========================= */
+
+function diet(){
+
+  return `
+
+  <h1>Diet</h1>
+
+  <div class="sub">
+    Nutrition tracking
+  </div>
+
+
+  <div class="card empty">
+
+    Diet tracking is reserved
+    for the next IronLOG update.
+
+    <br><br>
+
+    No food or macro data is
+    being recorded yet.
+
+  </div>
+
+  `;
+
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+function progress(){
+
+  let checks=
+    state.checkins
+      .slice()
+      .sort(
+        (a,b)=>
+          a.date.localeCompare(b.date)
+      );
+
+
+  let labels=
+    checks.map(
+      x=>fmt(x.date)
+    );
+
+
+  let weights=
+    checks.map(
+      x=>+x.weight
+    );
+
+
+  let bfChecks=
+    checks.filter(
+      x=>x.bf
+    );
+
+
+  return `
+
+  <h1>Progress</h1>
+
+  <div class="sub">
+    Your overall training and body progress
+  </div>
+
+
+  <div class="statgrid">
+
+    <div class="stat">
+
+      <b>
+        ${checks.at(-1)?.weight??"—"}
+      </b>
+
+      <small>
+        Latest kg
+      </small>
+
+    </div>
+
+
+    <div class="stat">
+
+      <b>
+
+        ${
+          checks.at(-1)?.bf
+          ?
+          checks
+            .at(-1)
+            .bf
+            .toFixed(1)+"%"
+          :
+          "—"
+        }
+
+      </b>
+
+      <small>
+        Latest BF
+      </small>
+
+    </div>
+
+
+    <div class="stat">
+
+      <b>
+        ${state.settings.goalWeight}
+      </b>
+
+      <small>
+        Goal kg
+      </small>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <b>Weight</b>
+
+    ${
+      weights.length>1
+      ?
+      chart(
+        weights,
+        labels,
+        " kg"
+      )
+      :
+      `
+      <div class="empty">
+
+        Add at least two Monday
+        check-ins to see the weight graph.
+
+      </div>
+      `
+    }
+
+  </div>
+
+
+  <div class="card">
+
+    <b>Body-fat %</b>
+
+    ${
+      bfChecks.length>1
+      ?
+      chart(
+        bfChecks.map(x=>x.bf),
+        bfChecks.map(x=>fmt(x.date)),
+        "%"
+      )
+      :
+      `
+      <div class="empty">
+
+        More body check-ins are needed
+        for a graph.
+
+      </div>
+      `
+    }
+
+  </div>
+
+
+  <div class="card">
+
+    <b>Workout & activity</b>
+
+
+    <div class="listrow">
+
+      <span>
+        Logged workout days
+      </span>
+
+      <span>
+        ${Object.keys(state.logs).length}
+      </span>
+
+    </div>
+
+
+    <div class="listrow">
+
+      <span>
+        Step days logged
+      </span>
+
+      <span>
+        ${Object.keys(state.steps).length}
+      </span>
+
+    </div>
+
+
+    <div class="listrow">
+
+      <span>
+        Goal weight
+      </span>
+
+      <span>
+        ${state.settings.goalWeight} kg
+      </span>
+
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+
+function chart(
+  vals,
+  labels,
+  suffix
+){
+
+  let min=Math.min(...vals);
+
+  let max=Math.max(...vals);
+
+  let range=max-min||1;
+
+  let w=500;
+
+  let h=140;
+
+  let p=12;
+
+
+  let pts=
+    vals.map(
+      (v,i)=>
+        `${p+i*(w-2*p)/
+        Math.max(
+          1,
+          vals.length-1
+        )},
+        ${h-p-
+        (v-min)/range*
+        (h-2*p)}`
+    )
+    .join(" ");
+
+
+  return `
+
+  <div class="chart">
+
+    <svg
+      viewBox="0 0 ${w} ${h}"
+      preserveAspectRatio="none">
+
+      <polyline
+        fill="none"
+        stroke="#d7ff4f"
+        stroke-width="3"
+        points="${pts}"
+      />
+
+      ${
+        vals.map(
+          (v,i)=>{
+
+            let parts=
+              pts
+              .split(" ")[i]
+              .split(",");
+
+            let x=parts[0];
+
+            let y=parts[1];
+
+            return `
+
+              <circle
+                cx="${x}"
+                cy="${y}"
+                r="4"
+                fill="#d7ff4f"
+              />
+
+            `;
+
+          }
+        ).join("")
+      }
+
+    </svg>
+
+  </div>
+
+
+  <div
+    class="tiny"
+    style="margin-top:7px">
+
+    ${labels[0]}
+    →
+    ${labels.at(-1)}
+
+    •
+    ${min.toFixed(1)}
+    ${suffix}
+    to
+    ${max.toFixed(1)}
+    ${suffix}
+
+  </div>
+
+  `;
+
+}
+
 
 /* =========================
    SETTINGS
 ========================= */
 
 function settings(){
- return `
- <h1>Settings</h1>
- <div class="sub">IronLOG preferences</div>
 
- <div class="card">
-  <h2>Goals</h2>
+  return `
 
-  ${input("goalInput","Goal weight (kg)",state.goalWeight||75)}
+  <h1>Settings</h1>
 
-  <div class="actions">
-   <button class="btn" onclick="saveGoals()">
-    Save Goal
-   </button>
-  </div>
- </div>
-
- <div class="card">
-  <h2>Backup</h2>
-
-  <div class="tiny">
-   Your IronLOG data is stored locally in this browser.
-   Export a backup regularly so you don't lose it.
+  <div class="sub">
+    IronLOG preferences and backups
   </div>
 
-  <div class="actions">
-   <button class="btn secondary" onclick="backup()">
-    Export Data
-   </button>
 
-   <button class="btn secondary" onclick="restore()">
-    Import Data
-   </button>
+  <div class="card">
+
+    <div class="field">
+
+      <label>
+        Goal weight (kg)
+      </label>
+
+      <input
+        id="goal"
+        inputmode="decimal"
+        value="${state.settings.goalWeight}"
+      >
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        class="btn"
+        onclick="saveSettings()">
+
+        Save settings
+
+      </button>
+
+    </div>
+
   </div>
- </div>
 
- <div class="card">
-  <h2>Reset</h2>
 
-  <div class="tiny">
-   This permanently clears all locally stored IronLOG data.
+  <div class="card">
+
+    <b>Data</b>
+
+
+    <div class="actions">
+
+      <button
+        class="btn secondary"
+        onclick="backup()">
+
+        Export backup
+
+      </button>
+
+
+      <button
+        class="btn secondary"
+        onclick="
+          document
+          .getElementById('importFile')
+          .click()
+        ">
+
+        Import backup
+
+      </button>
+
+
+      <button
+        class="btn danger"
+        onclick="resetAll()">
+
+        Reset all data
+
+      </button>
+
+    </div>
+
+
+    <input
+      id="importFile"
+      type="file"
+      accept=".json"
+      hidden
+      onchange="importBackup(this)"
+    >
+
   </div>
 
-  <div class="actions">
-   <button class="btn secondary" onclick="resetData()">
-    Reset IronLOG
-   </button>
-  </div>
- </div>
- `;
+  `;
+
 }
 
-function saveGoals(){
- const v=+document.getElementById("goalInput").value;
 
- if(v>0){
-  state.goalWeight=v;
+function saveSettings(){
+
+  state.settings.goalWeight=
+    +document
+      .getElementById("goal")
+      .value||75;
+
   save();
+
   render();
- }
+
 }
 
-function resetData(){
- if(!confirm("Delete all IronLOG data?"))return;
-
- localStorage.removeItem(STORAGE);
- localStorage.removeItem("ironlog_v1");
-
- location.reload();
-}
-
-/* =========================
-   BACKUP
-========================= */
 
 function backup(){
- const blob=new Blob(
-  [JSON.stringify(state,null,2)],
-  {type:"application/json"}
- );
 
- const a=document.createElement("a");
+  let a=document.createElement("a");
 
- a.href=URL.createObjectURL(blob);
- a.download="ironlog-backup.json";
- a.click();
+  a.href=
+    "data:application/json;charset=utf-8,"+
+    encodeURIComponent(
+      JSON.stringify(state)
+    );
 
- setTimeout(()=>{
-  URL.revokeObjectURL(a.href);
- },1000);
+  a.download=
+    "ironlog-backup.json";
+
+  a.click();
+
 }
 
-function restore(){
- const input=document.createElement("input");
 
- input.type="file";
- input.accept=".json";
+function importBackup(input){
 
- input.onchange=()=>{
-  const file=input.files[0];
+  let f=input.files[0];
 
-  if(!file)return;
+  if(!f)return;
 
-  const reader=new FileReader();
+  let r=new FileReader();
 
-  reader.onload=()=>{
-   try{
-    const imported=JSON.parse(reader.result);
+  r.onload=()=>{
 
-    if(!imported || typeof imported!=="object"){
-     throw new Error();
+    try{
+
+      state=JSON.parse(r.result);
+
+      save();
+
+      render();
+
+    }
+    catch(e){
+
+      alert(
+        "Invalid backup file."
+      );
+
     }
 
-    state=Object.assign({
-     page:"home",
-     logs:{},
-     checkins:[],
-     steps:{},
-     diet:{},
-     goalWeight:75,
-     settings:{
-      height:180,
-      sex:"male",
-      stepGoal:10000,
-      calorieGoal:2200,
-      proteinGoal:100,
-      carbGoal:170,
-      fatGoal:67
-     }
-    },imported);
-
-    save();
-    render();
-
-   }catch(e){
-    alert("Invalid IronLOG backup.");
-   }
   };
 
-  reader.readAsText(file);
+  r.readAsText(f);
+
 }
 
+
+function resetAll(){
+
+  if(
+    confirm(
+      "Reset all IronLOG data? This cannot be undone."
+    )
+  ){
+
+    localStorage.removeItem(KEY);
+
+    location.reload();
+
+  }
+
+}
+
+
 /* =========================
-   NAVIGATION
+   MAIN RENDER
 ========================= */
 
 function render(){
- const p=state.page||"home";
 
- let content;
+  let p=state.page||"home";
 
- if(p==="home")content=home();
- else if(p==="body")content=body();
- else if(p==="progress")content=progress();
- else if(p==="steps")content=steps();
- else if(p==="diet")content=diet();
- else if(p==="workout")content=workout();
- else if(p==="history")content=historyPage();
- else if(p==="settings")content=settings();
- else content=home();
 
- root.innerHTML=`
+  let content=
+    p==="home"
+    ?home()
+    :
+    p==="workout"
+    ?workout()
+    :
+    p==="body"
+    ?body()
+    :
+    p==="steps"
+    ?steps()
+    :
+    p==="diet"
+    ?diet()
+    :
+    p==="progress"
+    ?progress()
+    :
+    settings();
+
+
+  document.getElementById("root").innerHTML=
+
+  `
+
   <div class="app">
 
-   <header>
-    <div class="logo">
-     Iron<span>LOG</span>
-    </div>
+    <header>
 
-    <button class="btn secondary" onclick="backup()">
-     ↥
-    </button>
-   </header>
+      <div class="logo">
+        Iron<span>LOG</span>
+      </div>
 
-   ${content}
+
+      <div class="top-actions">
+
+        <!-- BODY IS TOP-RIGHT -->
+
+        <button
+          class="icon"
+          title="Body"
+          onclick="go('body')">
+
+          ⚖️
+
+        </button>
+
+
+        <!-- SETTINGS IS TOP-RIGHT -->
+
+        <button
+          class="icon"
+          title="Settings"
+          onclick="go('settings')">
+
+          ⚙️
+
+        </button>
+
+      </div>
+
+    </header>
+
+
+    ${content}
 
   </div>
 
-  <nav class="nav">
-   <div class="navin">
 
-    <button
-     class="${p==="home"?"active":""}"
-     onclick="go('home')">
-     Home
-    </button>
+  <!-- MAIN TABS ONLY -->
 
-    <button
-     class="${p==="workout"?"active":""}"
-     onclick="go('workout')">
-     Workout
-    </button>
+  <div class="bottom">
 
-    <button
-     class="${p==="body"||p==="progress"?"active":""}"
-     onclick="go('body')">
-     Body
-    </button>
+    <nav class="nav">
 
-    <button
-     class="${p==="steps"||p==="diet"?"active":""}"
-     onclick="go('steps')">
-     Activity
-    </button>
 
-    <button
-     class="${p==="history"||p==="settings"?"active":""}"
-     onclick="go('history')">
-     More
-    </button>
+      <button
+        class="${p==="home"?"active":""}"
+        onclick="go('home')">
 
-   </div>
-  </nav>
- `;
+        ⌂
+        <br>
+        Home
+
+      </button>
+
+
+      <button
+        class="${p==="workout"?"active":""}"
+        onclick="go('workout')">
+
+        ▣
+        <br>
+        Workout
+
+      </button>
+
+
+      <button
+        class="${p==="steps"?"active":""}"
+        onclick="go('steps')">
+
+        ↗
+        <br>
+        Steps
+
+      </button>
+
+
+      <button
+        class="${p==="diet"?"active":""}"
+        onclick="go('diet')">
+
+        +
+        <br>
+        Diet
+
+      </button>
+
+
+      <button
+        class="${p==="progress"?"active":""}"
+        onclick="go('progress')">
+
+        ◒
+        <br>
+        Progress
+
+      </button>
+
+
+    </nav>
+
+  </div>
+
+  `;
+
 }
 
-/* More page shortcut */
-document.addEventListener("click",function(e){
- if(e.target.closest(".nav button") && state.page==="history"){
-  // history remains the main More area
- }
-});
 
 render();
+
 </script>
+
 </body>
 </html>
