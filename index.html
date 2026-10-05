@@ -1287,13 +1287,41 @@ function saveSet(
 
   state.logs[date]=
     state.logs[date]||{
-      ex:{}
+      ex:[]
     };
+
+  // Make sure old data is converted to an array
+  if(!Array.isArray(state.logs[date].ex)){
+    state.logs[date].ex=
+      Object.values(state.logs[date].ex);
+  }
 
   state.logs[date].ex[i]=
     state.logs[date].ex[i]||{
       sets:[]
     };
+
+  state.logs[date].ex[i].sets=
+    state.logs[date].ex[i].sets||[];
+
+  state.logs[date].ex[i].sets[s]=
+    state.logs[date].ex[i].sets[s]||{};
+
+  state.logs[date].ex[i].sets[s][key]=val;
+
+  if(key==="done"){
+
+    state.logs[date].ex[i].done=
+      state.logs[date]
+        .ex[i]
+        .sets
+        .every(
+          x=>x?.done
+        );
+  }
+
+  save();
+}
 
   state.logs[date].ex[i].sets=
     state.logs[date].ex[i].sets||[];
