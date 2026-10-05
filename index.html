@@ -1323,27 +1323,7 @@ function saveSet(
   save();
 }
 
-  state.logs[date].ex[i].sets=
-    state.logs[date].ex[i].sets||[];
-
-  state.logs[date].ex[i].sets[s]=
-    state.logs[date].ex[i].sets[s]||{};
-
-  state.logs[date].ex[i].sets[s][key]=val;
-
-  if(key==="done"){
-
-    state.logs[date].ex[i].done=
-      state.logs[date]
-        .ex[i]
-        .sets
-        .every(
-          x=>x?.done
-        );
-  }
-
-  save();
-}
+  
 
 /* =========================
    BODY
