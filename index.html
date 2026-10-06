@@ -2799,23 +2799,73 @@ function saveSettings(){
   render();
 }
 
-function backup(){
+async function backup(){
 
-  let a=
-    document.createElement("a");
+  const json=JSON.stringify(state,null,2);
+  const fileName="ironlog-backup.json";
 
-  a.href=
-    "data:application/json;charset=utf-8,"+
-    encodeURIComponent(
-      JSON.stringify(state)
+  const file=new File(
+    [json],
+    fileName,
+    {type:"application/json"}
+  );
+
+  try{
+
+    if(
+      navigator.share &&
+      (!navigator.canShare ||
+        navigator.canShare({files:[file]}))
+    ){
+
+      await navigator.share({
+        title:"IronLOG Backup",
+        text:"IronLOG workout data backup",
+        files:[file]
+      });
+
+      return;
+    }
+
+  }catch(e){
+
+    if(e && e.name==="AbortError")
+      return;
+
+  }
+
+  try{
+
+    const blob=new Blob(
+      [json],
+      {type:"application/json"}
     );
 
-  a.download=
-    "ironlog-backup.json";
+    const url=URL.createObjectURL(blob);
 
-  a.click();
+    const a=document.createElement("a");
+
+    a.href=url;
+    a.download=fileName;
+    a.style.display="none";
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    setTimeout(()=>{
+      a.remove();
+      URL.revokeObjectURL(url);
+    },1000);
+
+  }catch(e){
+
+    alert(
+      "Export could not be started. Please try Share → Save to Files."
+    );
+
+  }
 }
-
 function importBackup(input){
 
   let f=input.files[0];
